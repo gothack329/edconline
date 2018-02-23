@@ -25,7 +25,7 @@ SECRET_KEY = '6wnit7q2j5#9-3^clq_8l25_f5y%)-=9)**u*7$w84km7$1)4c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 ]
 
 MIDDLEWARE = [
@@ -102,8 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
+gettext_noop = lambda s: s
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('zh-hans', gettext_noop('Simplified Chinese')),
+    ('en', gettext_noop('English')),
+)
+
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
@@ -118,3 +127,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'/static/')
