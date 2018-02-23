@@ -18,6 +18,7 @@ from django.urls import path,include
 import xadmin
 from xadmin.plugins import xversion
 import article
+import tinymce
 
 admin.autodiscover()
 
@@ -28,5 +29,6 @@ xversion.register_models()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'xadmin/', xadmin.site.urls),
+    path(r'tinymce/', include('tinymce.urls')),
     path(r'article/', include('article.urls')),
 ]
