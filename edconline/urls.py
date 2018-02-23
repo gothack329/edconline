@@ -14,14 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 import xadmin
-xadmin.autodiscover()
-
 from xadmin.plugins import xversion
+import article
+
+admin.autodiscover()
+
+xadmin.autodiscover()
 xversion.register_models()
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'xadmin/', xadmin.site.urls),
+    path(r'article/', include('article.urls')),
 ]
