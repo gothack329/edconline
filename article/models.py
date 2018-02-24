@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.db import models
 from tinymce.models import HTMLField
+from django.contrib.auth.models import User
+#from django.conf import settings
 #from tagging.fields import TagField
 #from tagging.models import Tag
 
@@ -10,6 +12,8 @@ class Article(models.Model):
     id=models.AutoField(primary_key=True)
     #catalog=models.ForeignKey(Catalogs)
     author = models.CharField(max_length=128,default='小志')
+    author_id = models.ForeignKey(User,on_delete=models.CASCADE,default=0)
+    #author_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     publish_date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=1024)
     detail = HTMLField()
