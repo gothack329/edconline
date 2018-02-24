@@ -7,5 +7,6 @@ django-import-export==1.0.0
 django-reversion==2.0.13
 django-six==1.0.4
 django-tinymce4-lite==1.7.0
+Pillow==5.0.0
 pyenchant==2.0.0
 xadmin==2.0.1
