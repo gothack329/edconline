@@ -25,7 +25,7 @@ def save_user_profile(sender, instance, **kwargs):
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email')
 
 class ProfileForm(ModelForm):
     class Meta:
