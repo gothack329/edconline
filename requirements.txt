@@ -1,0 +1,11 @@
+Django==2.0.2
+django-admin==1.1.1
+django-crispy-forms==1.7.0
+django-excel-response2==2.0.8
+django-formtools==2.1
+django-import-export==1.0.0
+django-reversion==2.0.13
+django-six==1.0.4
+django-tinymce4-lite==1.7.0
+pyenchant==2.0.0
+xadmin==2.0.1
