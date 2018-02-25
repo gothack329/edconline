@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block banner %}
+<div class="banner" style="background:url(/static/upload/{{cover}}) no-repeat;background-position:center;background-size:cover;">
+    <div class="container">
+            <h1>{% if title %}{{title}}{% endif %} </h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+	{% for i in arts %}
+	<div class="card">
+		<div class="preview row">
+				<div class="preview-image" style="background:url({{i.cover}}) no-repeat;background-position:center;background-size:cover;">
+				<p></p>
+			</div>
+			<div class="preview-info">
+				<h2>{{i.title}}</h2>
+				<p class="fad">{{i.detail|truncatewords:"30"|striptags}}</p>
+				<span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
+				&nbsp;&nbsp;&nbsp;
+				<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
+				<span class="pull-right">
+					<span><a href="/article/{{i.id}}/">阅读全文</a></span>
+				</span>
+			</div>
+		</div>
+
+	</div>
+	{% endfor %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+	<div class="card">
+		<h4>分类</h4>
+		<span class="sep"></span>
+		{% for i in secs %}
+			<p><a href="">{{i.name}}</a></p>
+			<span class="sep"></span>
+		{% endfor %}
+	</div>
+
+{% endblock %}

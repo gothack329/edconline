@@ -27,6 +27,7 @@ class Article(models.Model):
     author = models.CharField(max_length=128,default='')
     #author_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     publish_time = models.DateTimeField(auto_now_add=True)
+    cover = models.ImageField(upload_to='static/upload/', blank=True, null=True)
     title = models.CharField(max_length=1024)
     detail = HTMLField()
     ip = models.GenericIPAddressField(blank=True,null=True)

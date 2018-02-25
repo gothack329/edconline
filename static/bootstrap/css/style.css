@@ -5,6 +5,20 @@ html,body {
 	height: 100%;
 }
 
+.banner {
+	top:0;
+	width:100%;
+	height:400px;
+	min-height:50px;
+	box-shadow: 0 0 12px 0 #25292e inset;
+}
+
+.banner h1 {
+	position: relative;
+	top:250px;
+	color:white;
+}
+
 .navbar-collapse {
     background-color: rgba(38,41,46,0.9);
     box-shadow:0 0 2px 0 #25292e;
@@ -30,8 +44,9 @@ ul.nav.navbar-nav  li a:hover {
 	text-decoration:none;	
 }
 
-.container-fluid {
-	padding-top:50px;
+div.container-fluid {
+	margin:0;
+
 	position:relative;
     min-height:100%;
     /*设置padding-bottom值大于等于footer的height值，以保证main的内容能够全部显示出来而不被footer遮盖；*/
@@ -45,12 +60,47 @@ ul.nav.navbar-nav  li a:hover {
 
 .card {
 	width:100%;
-	margin:10px;
 	padding:10px;
+	margin:10px;
 	border: 1px solid #e2e2e2;
 	box-shadow: 1px 1px 1px 1px #e2e2e2;
 	background-color:white;
 }
+
+.card .preview div {
+    display: block;
+	padding:0 20px 0 20px;
+}
+
+.card a {
+	color:#d73a49; 
+}
+
+.card p {
+	padding:0 10px 0 10px;
+}
+
+.card .preview .preview-image {
+	margin:0 20px 20px 20px;
+	width: auto;
+	height:130px;
+}
+
+.fad {
+	color:gray;
+}
+
+.card .sep {
+	display:block;
+	margin-bottom:10px;
+	border-bottom:1px solid #e2e2e2; 
+}
+
+
+
+
+
+
 
 
 footer {
@@ -69,8 +119,11 @@ footer, footer a{
 	padding:20px;
 }
 
-
 .foot-wrap .foot-bottom  {
 	padding: 20px;
 	border-top:1px solid rgba(255,255,255,.2);
 }
+
+
+
+

@@ -20,6 +20,7 @@ from xadmin.plugins import xversion
 import article
 import userpage
 import tinymce
+import edconline.views as views 
 
 admin.autodiscover()
 
@@ -28,6 +29,7 @@ xversion.register_models()
 
 
 urlpatterns = [
+    path('', views.homepage),
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     path('tinymce/', include('tinymce.urls')),
