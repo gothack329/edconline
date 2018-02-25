@@ -2,11 +2,128 @@
 {% load staticfiles %}
 
 <html>
-		<head>
-				<title>{% if title %}{{title}} - {% endif %}物志</title>
-			{% block header %}		
-			{% endblock %}		
-		</head>
-		<body>
-		</body>
+	<head>
+		<title>{% if title %}{{title}} - {% endif %}物志</title>
+	    <meta charset="utf-8">
+   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="EDC online">
+    	<meta name="author" content="物志">
+	    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
+		{% block header %}		
+    	<link href="/static/bootstrap/css/style.css" rel="stylesheet">
+		{% endblock %}		
+	</head>
+	<body>
+
+		<nav class="navbar-collapse collapse navbar-fixed-top">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="css106de12c1c1bfaa ">
+						<a class="logo" href='/'>物志</a>  
+					</li>
+					<li class="navbar-right">
+					{% if user.login %}
+					    头像
+					{% else%}
+					    <a href="#">登录</a>
+					{% endif %}
+					</li>
+		
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="container">
+				<div class="row ">
+					<div class="content col-md-8">
+							
+						<div class="card">
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						</div>
+
+						<div class="card">
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						</div>
+
+						<div class="card">
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						</div>
+
+						<div class="card">
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						</div>
+
+						<div class="card">
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						 <p>这里是正文栏</p>
+						</div>
+
+					</div>
+					
+					<div class="sidebar col-md-4">
+						{% block sidebar %}
+						{% endblock %}
+						<div class="card">
+						 <p>这里是右侧边栏</p>
+						 <p>这里是右侧边栏</p>
+						 <p>这里是右侧边栏</p>
+						</div>
+						<div class="card">
+						 <p>这里是右侧边栏</p>
+						 <p>这里是右侧边栏</p>
+						 <p>这里是右侧边栏</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+<footer class="foot-wrap">
+    <!--采用container，使得页尾内容居中 -->
+        <div class="container">
+				<section class="foot-top">
+						<strong>
+							<a href="" >关于</a>
+							<a href="" >关于</a>
+							<a href="" >关于</a>
+							<a href="" >关于</a>
+						<strong>
+				</section>
+
+				<section class="foot-bottom">
+					<span class="css106de12c1c1bfaa" style="font-size:30px;font-color:#d73a49">
+						<a class="logo" href='/'>物志</a>  
+					</span>
+					Copyright ©2018 
+				</section>
+		</div>
+
+</footer>
+
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/scripts.js"></script>
+	</body>
 </html>

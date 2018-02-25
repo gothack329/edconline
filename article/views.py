@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 # Create your views here.
 
 def homepage(request):
-    return HttpResponse('<p>Test</p>') 
+    return render(request,'base.html') 
 
 
 def detail(request, article_id):
