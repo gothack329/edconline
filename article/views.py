@@ -25,7 +25,9 @@ def detail(request, article_id):
     else:
         comment_form = CommentForm(instance=None)
 
-    return render(request,'article/detail.html',{'art':art,'comments':comments,'comment_form':comment_form})
+    secs = Section.objects.all()
+
+    return render(request,'article/detail.html',{'art':art,'comments':comments,'comment_form':comment_form,'secs':secs})
     #return HttpResponse("You're looking at article %s." % article_id)
 
 

@@ -19,7 +19,8 @@
 			</div>
 			<div class="preview-info">
 				<h2>{{i.title}}</h2>
-				<p class="fad">{{i.detail|truncatewords:"30"|striptags}}</p>
+				<p class="fad">{{i.detail|striptags|truncatechars:140|safe}} </p>
+				<p></p>
 				<span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
 				&nbsp;&nbsp;&nbsp;
 				<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
@@ -34,15 +35,3 @@
 
 {% endblock %}
 
-{% block sidebar %}
-
-	<div class="card">
-		<h4>分类</h4>
-		<span class="sep"></span>
-		{% for i in secs %}
-			<p><a href="/?catalog={{i.name}}">{{i.name}}</a></p>
-			<span class="sep"></span>
-		{% endfor %}
-	</div>
-
-{% endblock %}
