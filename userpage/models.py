@@ -11,7 +11,10 @@ class Profile(models.Model):
     #bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     #birth_date = models.DateField(null=True, blank=True)
-    avatar = models.ImageField(upload_to='avatar/', blank=True, null=True)
+    avatar = models.ImageField(upload_to='static/avatar/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -3,6 +3,7 @@ from django.db import models
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 from django.forms import ModelForm,Textarea
+from userpage.models import *
 #from django.conf import settings
 #from tagging.fields import TagField
 #from tagging.models import Tag
@@ -23,7 +24,7 @@ class Section(models.Model):
 class Article(models.Model):
     id=models.AutoField(primary_key=True)
     section=models.ForeignKey(Section,on_delete=models.CASCADE,default=0)
-    author_id = models.ForeignKey(User,on_delete=models.CASCADE,default=0)
+    author_id = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0)
     author = models.CharField(max_length=128,default='')
     #author_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     publish_time = models.DateTimeField(auto_now_add=True)
@@ -58,8 +59,7 @@ class ArticleForm(ModelForm):
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     article = models.ForeignKey(Article,on_delete=models.CASCADE,default=0)
-    user = models.CharField(max_length=128)
-    mail = models.CharField(max_length=1024)
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0) 
     comment_time = models.DateTimeField(auto_now_add=True)
     comment = HTMLField()
     ip = models.GenericIPAddressField()
@@ -74,3 +74,10 @@ class Comment(models.Model):
         db_table ="comment"
         ordering = ['-comment_time']
 
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment 
+        fields = ('article','user','comment')
+        widgets = {
+                    'comment':Textarea(),
+                }

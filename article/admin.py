@@ -4,6 +4,7 @@ from article.models import *
 # Register your models here.
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id','section','title','author','author_id','publish_time','visible')
+    #search_fields = ('section__name',)
 admin.site.register(Article,ArticleAdmin)
 
 
@@ -13,5 +14,5 @@ admin.site.register(Section,SectionAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display=('id','article','user','mail','ip','comment_time','comment')
+    list_display=('id','article','user','ip','comment_time','comment')
 admin.site.register(Comment,CommentAdmin)

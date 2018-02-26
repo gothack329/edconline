@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block header %}
+<title>{{art.title}} - 物志</title>
+
+{% endblock %}
+
+
+{% block banner %}
+<div class="banner" style="background:url(/{{art.cover}}) no-repeat;background-position:center;background-size:cover;">
+    <div class="container">
+            <h1>{% if art %}{{art.title}}{% endif %} </h1>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="card margintop">
+	<span class="fad">作者：<a href="#"><img src="/static/{{art.author_id.avatar}}" class="avatar-img">&nbsp;{{art.author}}</a> </span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="fad">发表于：{{art.publish_time}}</span>
+	<span class="sep margintop"></span>
+	<span class="ad1"> </span>
+    {{art.detail|safe}}
+</div>
+
+<div class="card">
+	<span class="sep"></span>
+	{% for i in comments %}
+    <div class="comment row">
+        <div class="comment-avatar" style="margin-top:20px;background:url(/static/{{i.user.avatar}}) no-repeat;background-position:center;background-size:cover;">
+			<p>{{i.user.username}}</p>
+        </div>
+        <div class="comment-info">
+			<p></p>
+          	{{i.comment|safe}}
+          	<span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
+          	<span class="pull-right">
+   		  		<a href="#"><span class="glyphicon glyphicon-reply fad"></span></a> &nbsp; <span class="fad">#{{forloop.counter}}</span>
+          	</span>
+       </div>
+    </div>
+	<span class="sep"></span>
+	{% endfor %}
+</div>
+
+<div class="card">
+    <form method="post">
+    	{% csrf_token %}
+    	{{ comment_form.as_p }}
+    	<button class="btn btn-default pull-right" type="submit">发表</button>
+    </form>
+
+</div>
+{% endblock %}
