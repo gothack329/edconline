@@ -2,6 +2,23 @@
 
 {% block header %}
 <title>{{art.title}} - 物志</title>
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+tinyMCE.init(
+{
+    'height': 100,
+    'width': '100%',
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': ' textcolor save link image media preview codesample contextmenu table code lists fullscreen  insertdatetime  nonbreaking contextmenu directionality searchreplace wordcount visualblocks visualchars code fullscreen autolink lists  charmap print  hr anchor pagebreak textpattern',
+    'toolbar1': 'fullscreen preview bold italic underline | fontselect,  fontsizeselect  | forecolor backcolor | alignleft alignright |  aligncenter alignjustify | indent outdent | bullist numlist table | | link image media | codesample |',
+    'toolbar2': '  visualblocks visualchars | charmap hr pagebreak nonbreaking anchor |  code |',
+    'contextmenu': 'formats | link image',
+    }
+
+);
+</script>
 
 {% endblock %}
 
@@ -48,9 +65,20 @@
 </div>
 
 <div class="card">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form method="post">
     	{% csrf_token %}
-    	{{ comment_form.comment }}
+		<input type='hidden' name="article" value="{{art.id}}" />
+		<input type='hidden' name="user" value="{{request.user.id}}" />
+		<input type='hidden' name="ip" value="1.1.1.1" />
+
+		{{comment_form.comment}}
     	<button class="btn btn-default pull-right" type="submit">发表</button>
     </form>
 

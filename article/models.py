@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.db import models
-from tinymce.models import HTMLField
+from tinymce.models import HTMLField,TinyMCE
 from django.contrib.auth.models import User
 from django.forms import ModelForm,Textarea
 from userpage.models import *
@@ -77,7 +77,7 @@ class Comment(models.Model):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment 
-        fields = ('article','user','comment')
+        fields = ('article','user','comment','ip')
         widgets = {
-                    'comment':Textarea(),
+                'comment':TinyMCE(attrs={'cols':'100%','rows':10}),
                 }

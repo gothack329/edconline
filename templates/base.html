@@ -25,8 +25,8 @@
 						<a class="logo" href='/'>物志</a>  
 					</li>
 					<li class="navbar-right">
-					{% if username %}
-					<a href="#">{{username}}</a>
+					{% if request.user %}
+					<a href="#">{{request.user.username}}</a>
 					{% else%}
 					    <a href="#">登录</a>
 					{% endif %}
