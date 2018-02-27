@@ -1,18 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.db.models import Q
-from django.template import RequestContext,Template,Context,loader,defaultfilters
+from django.template import Template,Context,loader,defaultfilters
 from django.shortcuts import render_to_response
 from article.models import *
 import os,random
 import userpage 
+from . import globalarg
 
 # Create your views here.
-
-def user_login(request):
-    return {
-        'username':request.user,
-    }
 
 def homepage(request):
     query = request.GET.items() 
@@ -34,7 +30,6 @@ def homepage(request):
     else:
         arts = Article.objects.all().order_by('-publish_time')
 
-    secs = Section.objects.all()
-    return render(request,'index.html',{'cover':cover,'username':username,'arts':arts,'secs':secs}) 
+    return render(request,'index.html',{'cover':cover,'username':username,'arts':arts},[globalarg.settings]) 
 
 

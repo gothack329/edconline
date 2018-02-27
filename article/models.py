@@ -27,7 +27,7 @@ class Article(models.Model):
     author_id = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0)
     author = models.CharField(max_length=128,default='')
     #author_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    publish_time = models.DateTimeField(auto_now_add=True)
+    publish_time = models.DateTimeField(auto_now_add=True,editable=False)
     cover = models.ImageField(upload_to='static/upload/', blank=True, null=True)
     title = models.CharField(max_length=1024)
     detail = HTMLField()
@@ -50,9 +50,9 @@ class Article(models.Model):
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title','author','section','tag','detail','ip']
+        fields = ['title','author','section','tag','cover','detail']
         widgets = {
-                    'detail':Textarea(),
+                    'detail':TinyMCE(attrs={'cols':'100%','rows':50}),
                 }
 
 
@@ -60,7 +60,7 @@ class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     article = models.ForeignKey(Article,on_delete=models.CASCADE,default=0)
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0) 
-    comment_time = models.DateTimeField(auto_now_add=True)
+    comment_time = models.DateTimeField(auto_now_add=True,editable=False)
     comment = HTMLField()
     ip = models.GenericIPAddressField()
     clickcount = models.IntegerField(default=0)
