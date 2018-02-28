@@ -2,141 +2,141 @@
 {% load staticfiles %}
 
 <html>
-	<head>
-	    <meta charset="utf-8">
-   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	    <meta name="description" content="EDC online">
-    	<meta name="author" content="物志">
-	    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="/static/bootstrap/css/style.css" rel="stylesheet">
-    	<script src="/static/bootstrap/js/jquery.min.js"></script>
-    	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    	<script src="/static/bootstrap/js/scripts.js"></script>
-		<link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
-		{% block header %}		
-		<title>{% if title %}{{title}} - {% endif %}物志</title>
-		{% endblock %}		
-	</head>
-	<body>
+    <head>
+        <meta charset="utf-8">
+           <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="EDC online">
+        <meta name="author" content="物志">
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/bootstrap/css/style.css" rel="stylesheet">
+        <script src="/static/bootstrap/js/jquery.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/bootstrap/js/scripts.js"></script>
+        <script type="text/javascript" src="/static/bootstrap/js/bootstrap-notify.min.js"></script>
+        <script type="text/javascript" src="/static/bootstrap/js/bootstrap-notify.js"></script>
+        <link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
+        {% block header %}        
+        <title>{% if title %}{{title}} - {% endif %}物志</title>
+        {% endblock %}        
+    </head>
+    <body>
 
-		<nav class="navbar-collapse collapse navbar-fixed-top">
-			<div class="container">
-				<ul class="nav navbar-nav">
-					<li> <p></p> </li>
-					<li class="css106de12c1c1bfaa ">
-						<a class="logo" href='/'>物志</a>  
-					</li>
-					<li class="navbar-right">
-					{% if request.user %}
-					<a href="#">{{request.user.username}}</a>
-					{% else%}
-					    <a href="#">登录</a>
-					{% endif %}
-					</li>
-		
-				</ul>
-			</div>
-		</nav>
+        <nav class="navbar-collapse collapse navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li> <p></p> </li>
+                    <li class="css106de12c1c1bfaa ">
+                        <a class="logo" href='/'>物志</a>  
+                    </li>
+                    <li class="navbar-right">
+                    {% if request.user %}
+                    <a href="#">{{request.user.username}}</a>
+                    {% else%}
+                        <a href="#">登录</a>
+                    {% endif %}
+                    </li>
+        
+                </ul>
+            </div>
+        </nav>
 
-		{% block banner %}
-		<div class="banner">
-			<div class="container">
-					<h1>{% if title %}{{title}}{% endif %} </h1>
-			</div>
-		</div>
-		{% endblock %}
+        {% block banner %}
+        <div class="banner">
+            <div class="container">
+                    <h1>{% if title %}{{title}}{% endif %} </h1>
+            </div>
+        </div>
+        {% endblock %}
 
-		<div class="container-fluid">
-			<div class="container">
-				<div class="row ">
-					<div class="content col-md-8">
-						{% block content %}							
-						<div class="card">
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						</div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row ">
+                    <div class="content col-md-8">
+                        {% block content %}                            
+                
 
-						<div class="card">
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						</div>
+                        <div class="card">
+                         <p>这里是正文栏</p>
+                         <p>这里是正文栏</p>
+                         <p>这里是正文栏</p>
+                         <p>这里是正文栏</p>
+                         <p>这里是正文栏</p>
+                        </div>
+                        {% endblock%}
 
-						<div class="card">
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						</div>
+                    </div>
+                    
+                    <div class="sidebar col-md-4">
+                    {% block sidebar %}
 
 						<div class="card">
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
+						    <div class="usercard row">
+						        <div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
+						        </div>
+						        <div class="usercard-info">
+						        	<p>
+						        		<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
+						        			{{user.user}}
+						        		</span> 
+						        	</p>	
+						        	<p>
+						        		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span class="fad">	
+						        			{{user.point}}
+						        		</span> &nbsp;&nbsp;&nbsp;
+						        		{% ifnotequal user.msg 0 %}
+						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒">
+						        		{% else %}
+						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒">
+						        		{% endifnotequal %}
+
+						        			{{user.msg}}
+						        		</span> &nbsp;&nbsp;&nbsp;
+						        	</p>			 
+						       </div>
+						    </div>
+						    <button class="btn btn-default" style="width:100%;margin-top: 10px" type="submit" onclick="window.location.href='/article/publish'">
+						    	<span class="glyphicon glyphicon-pencil"></span>&nbsp; 发布新文章
+						    </button>
 						</div>
 
-						<div class="card">
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						 <p>这里是正文栏</p>
-						</div>
-						{% endblock%}
+                        <div class="card">
+                                <h4>主题分区</h4>
+                                <span class="sep"></span>
+                                <p><a href="/">全部</a></p>
+                                <span class="sep"></span>
+                                {% for i in secs %}
+                                        <p><a href="/?catalog={{i.name}}">{{i.name}}</a></p>
+                                        <span class="sep"></span>
+                                {% endfor %}
+                        </div>
+                        <div class="card ad2">
+                                <h4>广告位</h4>
+                        </div>
+                 
+                    {% endblock %}
+                	</div>
+        	    </div>
+        	</div>
+        
+    <footer class="foot-wrap">
+            <div class="container">
+                    <section class="foot-top">
+                            <strong>
+                                <a href="" >关于</a>
+                            </strong>
+                    </section>
+    
+                    <section class="foot-bottom">
+                        <span class="css106de12c1c1bfaa" style="font-size:30px;font-color:#d73a49">
+                            <a class="logo" href='/'>物志</a>  
+                        </span>
+                        Copyright ©2018 
+                    </section>
+            </div>
+    </footer>
 
-					</div>
-					
-					<div class="sidebar col-md-4">
-					{% block sidebar %}
+	</div>
 
-					        <div class="card">
-					                <h4>主题分区</h4>
-					                <span class="sep"></span>
-					                <p><a href="/">全部</a></p>
-					                <span class="sep"></span>
-					                {% for i in secs %}
-					                        <p><a href="/?catalog={{i.name}}">{{i.name}}</a></p>
-					                        <span class="sep"></span>
-					                {% endfor %}
-					        </div>
-
-					        <div class="card ad2">
-					                <h4>广告位</h4>
-					        </div>
-					
-					{% endblock %}
-				</div>
-			</div>
-		</div>
-
-
-	<footer class="foot-wrap">
-	        <div class="container">
-					<section class="foot-top">
-							<strong>
-								<a href="" >关于</a>
-							<strong>
-					</section>
-	
-					<section class="foot-bottom">
-						<span class="css106de12c1c1bfaa" style="font-size:30px;font-color:#d73a49">
-							<a class="logo" href='/'>物志</a>  
-						</span>
-						Copyright ©2018 
-					</section>
-			</div>
-	</footer>
-
-
-
-	</body>
+    </body>
 </html>

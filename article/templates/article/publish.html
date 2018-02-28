@@ -21,6 +21,8 @@ tinyMCE.init(
 </script>
 <script type="text/javascript" src="/static/bootstrap/js/bootstrap-tagsinput.js"></script>
 <link href="/static/bootstrap/css/bootstrap-tagsinput.css" rel="stylesheet">
+
+
 {% endblock %}
 
 {% block banner %}
@@ -33,14 +35,29 @@ tinyMCE.init(
 <div class="card">
     <h4>{{operation}}文章</h4>
     <span class="sep margintop"></span>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% if article_form.errors %}
+    {% for field in article_form %}
+        {% for error in field.errors %}
+            <script type="text/javascript">
+            $.notify({
+                // options
+                message: '{{ error|escape }}',
+            },{
+                // settings
+                type: 'warning',
+                delay: 5000,
+                timer: 1000,
+                animate: {
+                    enter: 'animated flipInY',
+                    exit: 'animated flipOutX'
+                },
+            },);
+           </script>
         {% endfor %}
-    </ul>
-    {% endif %}
-    <form method="post" class="form-inline textarea" novalidate>
+    {% endfor %}
+{% endif %}  
+
+    <form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <input type="hidden" name="author_id" value="{{request.user.id}}">
         <p>{{article_form.section}} - {{article_form.title}} - {{article_form.author}}</p> 

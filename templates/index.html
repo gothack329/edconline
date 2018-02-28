@@ -11,27 +11,27 @@
 
 {% block content %}
 
-	{% for i in arts %}
-	<div class="card">
-		<div class="preview row">
-				<div class="preview-image" style="background:url({{i.cover}}) no-repeat;background-position:center;background-size:cover;">
-				<p></p>
-			</div>
-			<div class="preview-info">
-				<h2>{{i.title}}</h2>
-				<p class="fad">{{i.detail|striptags|truncatechars:140|safe}} </p>
-				<p></p>
-				<span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
-				&nbsp;&nbsp;&nbsp;
-				<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
-				<span class="pull-right">
-					<span><a href="/article/{{i.id}}/">阅读全文</a></span>
-				</span>
-			</div>
-		</div>
+    {% for i in arts %}
+    <div class="card">
+        <div class="preview row">
+                <div class="preview-image" style="background:url({{i.cover}}) no-repeat;background-position:center;background-size:cover;">
+                <p></p>
+            </div>
+            <div class="preview-info">
+                <h2>{{i.title}}</h2>
+                <p class="fad">{{i.detail|striptags|truncatechars:140|safe}} </p>
+                <p></p>
+                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
+                <span class="pull-right">
+                    <span><a href="/article/{{i.id}}/">阅读全文</a></span>
+                </span>
+            </div>
+        </div>
 
-	</div>
-	{% endfor %}
+    </div>
+    {% endfor %}
 
 {% endblock %}
 

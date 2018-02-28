@@ -19,8 +19,6 @@ def detail(request, article_id):
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST,instance=None)
-        print(comment_form)
-        
         
         instance = comment_form.save(commit=False)
         instance.ip = request.META['REMOTE_ADDR']
@@ -41,17 +39,16 @@ def detail(request, article_id):
 
 def publish(request):
     if request.method == 'POST':
-        article_form = ArticleForm(request.POST,instance=None)
+        article_form = ArticleForm(request.POST,request.FILES,instance=None)
         
         if article_form.is_valid():
             instance = article_form.save(commit=False)
             instance.ip = request.META['REMOTE_ADDR']
             art = instance.save()
   
-
             return redirect('/article/%d/' % (instance.pk,))
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, article_form.errors)
     else:
         article_form = ArticleForm(instance=None)
 
@@ -61,7 +58,7 @@ def publish(request):
 def update(request, article_id):
     art = Article.objects.get(pk=article_id)
     if request.method == 'POST':
-        article_form = ArticleForm(request.POST,instance=art)
+        article_form = ArticleForm(request.POST,request.FILES,instance=art)
 
         if article_form.is_valid():
             instance = article_form.save(commit=False)
@@ -70,7 +67,7 @@ def update(request, article_id):
   
             return redirect('/article/%d/' % (article_id,))
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, article_form.errors)
     else:
         article_form = ArticleForm(instance=art)
 

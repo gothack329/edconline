@@ -51,15 +51,22 @@ class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['title','author','author_id','section','tag','cover','detail']
+        error_messages = {
+            'section':{'required': '请选择主题分区'},
+            'author':{'required': '请输入作者名称'},
+            'cover':{'required': '请上传封面图'},
+            'detail':{'required': '请输入正文内容'},
+            'title':{'required': '请输入文章标题'},
+
+            }
         widgets = {
-                    'detail':TinyMCE(attrs={'cols':'100%','rows':30}),
-                    'cover':ClearableFileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
-                    'tag':TextInput(attrs={'class':'form-control','placeholder':"添加标签,回车确认",'data-role':'tagsinput'}),
-                    'author':TextInput(attrs={'class':'form-control','placeholder':"署名"}),
-                    'title':TextInput(attrs={'style':'width:50%','class':'form-control','placeholder':"标题"}),
-                    'section':widgets.Select(choices=Section.objects.values_list('id','name'),attrs={'class':'form-control','placeholder':"标题"}),
-                
-                }
+           'detail':TinyMCE(attrs={'cols':'100%','rows':30}),
+           'cover':ClearableFileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
+           'tag':TextInput(attrs={'class':'form-control','placeholder':"添加标签,回车确认",'data-role':'tagsinput'}),
+           'author':TextInput(attrs={'class':'form-control','placeholder':"署名"}),
+           'title':TextInput(attrs={'style':'width:50%','class':'form-control','placeholder':"标题"}),
+           'section':widgets.Select(choices=Section.objects.values_list('id','name'),attrs={'class':'form-control','placeholder':"标题"}), 
+            }
 
 
 class Comment(models.Model):

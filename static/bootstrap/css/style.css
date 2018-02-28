@@ -124,9 +124,6 @@ div.container-fluid {
 	padding-bottom:30px;
 }
 
-.card .comment {
-}
-
 .card .comment div {
     display: inline-block;
 	margin:10px;
@@ -170,6 +167,26 @@ span.floor {
 .textarea {
 	padding-bottom: 40px;
 }
+
+.card .usercard div {
+    display: inline-block;
+	margin:10px;
+	float:left;
+}
+
+.card .usercard .usercard-avatar {
+	margin:10px 0 0 20px;
+	width:80px;
+	height:80px;
+}
+
+.card .usercard .usercard-info {
+	float:left;
+	padding-right:20px;
+}
+
+
+
 
 
 
