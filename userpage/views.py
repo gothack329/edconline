@@ -6,16 +6,23 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .models import *
 from django.contrib import messages
+from article.models import *
 
 # Create your views here.
 
-def homepage(request, user_id):
-    return HttpResponse("You're looking at user %s." % user_id)
+def profile(request, username):
+    inst_user = User.objects.get(username=username)
+    inst_profile = Profile.objects.get(user=inst_user)
+
+    arts = Article.objects.filter(author_id=inst_profile)
+    comments = Comment.objects.filter(user=inst_profile)
+    return render(request, 'userpage/profile.html', {'member':inst_user,'arts':arts,'comments':comments})
 
 
 @login_required
 @transaction.atomic
 def update_profile(request):
+
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)

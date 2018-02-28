@@ -18,12 +18,16 @@
                 <p></p>
             </div>
             <div class="preview-info">
-                <h2>{{i.title}}</h2>
-                <p class="fad">{{i.detail|striptags|truncatechars:140|safe}} </p>
+                <a href="/article/{{i.id}}/"><h2>{{i.title}}</h2></a>
+                <p class="fad">{{i.detail|striptags|truncatechars:500|safe}} </p>
                 <p></p>
                 <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
                 &nbsp;&nbsp;&nbsp;
-                <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
+                <a href="/userpage/member/{{i.author_id}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span></a>
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-th-list fad"> </span>&nbsp;<a href="/?catalog={{i.section}}"><span class="fad">{{i.section}}</span></a>
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{{i.tag}}</span>
                 <span class="pull-right">
                     <span><a href="/article/{{i.id}}/">阅读全文</a></span>
                 </span>

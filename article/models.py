@@ -35,6 +35,7 @@ class Article(models.Model):
     tag = models.CharField(max_length=128, blank=True, null=True)
     visible = models.CharField(choices=(('Y','是'),('N','否')),max_length=64,default='N')
     readtime = models.IntegerField(default=0)
+    #comment_count = models.IntegerField(default=0)
 
     #def set_tags(self, tags):
     #    Tag.objects.update_tags(self, tags)

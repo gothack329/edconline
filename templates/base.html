@@ -30,11 +30,7 @@
                         <a class="logo" href='/'>物志</a>  
                     </li>
                     <li class="navbar-right">
-                    {% if request.user %}
-                    <a href="#">{{request.user.username}}</a>
-                    {% else%}
-                        <a href="#">登录</a>
-                    {% endif %}
+
                     </li>
         
                 </ul>
@@ -71,33 +67,44 @@
                     {% block sidebar %}
 
 						<div class="card">
+                            {% ifnotequal user.id None %}
 						    <div class="usercard row">
+
 						        <div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
 						        </div>
 						        <div class="usercard-info">
 						        	<p>
-						        		<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
+						        		<a href="/userpage/member/{{user.user}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
 						        			{{user.user}}
-						        		</span> 
+						        		</span> </a>
 						        	</p>	
 						        	<p>
 						        		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span class="fad">	
 						        			{{user.point}}
 						        		</span> &nbsp;&nbsp;&nbsp;
 						        		{% ifnotequal user.msg 0 %}
-						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒">
+						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒"> 
 						        		{% else %}
-						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒">
+						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" > </span>&nbsp;<span class="fad" alt="未读提醒">
 						        		{% endifnotequal %}
 
 						        			{{user.msg}}
 						        		</span> &nbsp;&nbsp;&nbsp;
 						        	</p>			 
-						       </div>
+						        </div>
 						    </div>
-						    <button class="btn btn-default" style="width:100%;margin-top: 10px" type="submit" onclick="window.location.href='/article/publish'">
+						    <button class="btn btn-default" style="width:100%;margin-top: 10px" type="submit" onclick="window.location.href='/article/publish/'">
 						    	<span class="glyphicon glyphicon-pencil"></span>&nbsp; 发布新文章
 						    </button>
+                            {% else %}
+                            <button class="btn btn-info btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/login/'">
+                                登录
+                            </button>
+                             <button class="btn btn-info btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/register/'">
+                                注册
+                            </button>
+
+                            {% endifnotequal %}
 						</div>
 
                         <div class="card">

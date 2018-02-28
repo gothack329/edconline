@@ -4,38 +4,80 @@
 <title>[ {{request.user}} ]用户详情 - 物志</title>
 {% endblock %}
 
-
+{% block banner %}
+    <div style="height:30px">
+        <p></p>
+    </div>
+{% endblock %}
 {% block content%}
-
-	{% if user_form.errors %}
-	    {% for field in user_form %}
-	        {% for error in field.errors %}
-	            <script type="text/javascript">
-	            $.notify({
-	                // options
-	                message: '{{ error|escape }}',
-	            },{
-	                // settings
-	                type: 'warning',
-	                delay: 5000,
-	                timer: 1000,
-	                animate: {
-	                    enter: 'animated flipInY',
-	                    exit: 'animated flipOutX'
-	                },
-	            },);
-	           </script>
-	        {% endfor %}
-	    {% endfor %}
-	{% endif %}  
-
+	<div class="card">
+		<div class="usercard row">
+	
+		    <div class="usercard-avatar" style="background:url(/{{member.profile.avatar}}) no-repeat;background-size:80px 80px;">
+		    </div>
+		    <div class="usercard-info">
+		    	<p>
+		    		<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
+		    			{{member.username}}
+		    		</span> 
+		    	</p>	
+		    	<p>
+		    		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span 	class="fad">	
+		    			{{member.profile.point}}
+		    		</span> &nbsp;&nbsp;&nbsp;
+		    		{% ifequal member.id  user.id %}
+		    		{% ifnotequal user.msg 0 %}
+		    		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad"	 alt="未读提醒"> 
+		    		{% else %}
+		    		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" > </span>&nbsp;<span class="fad" alt="未读提醒">
+		    		{% endifnotequal %}
+		    			{{user.msg}}
+		    		</span> &nbsp;&nbsp;&nbsp;
+		    		{% endifequal %}
+		    	</p>	
+		    	<p> 本站第 {{member.id}} 位会员，于 {{member.date_joined}} 注册，最近一次登录于 {{member.last_login}}. 
+		    </div>
+		</div>
+	</div>
 
 	<div class="card">
-		<form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
-		  {% csrf_token %}
-		  {{ user_form.as_p }}
-		  {{ profile_form.as_p }}
-		  <button type="submit">保存资料</button>
-		</form>
+		<ul class="nav nav-tabs">
+		  <li role="presentation" class="active"><a href="/article/{{member.username}}/" target="subpage">文章列表<span class="badge">{{arts|length}}</span></a></li>
+		  <li role="presentation"><a href="/article/comment/{{member.username}}/" target="subpage">评论列表<span class="badge">{{comments|length}}</span></a></li>
+		  {% ifequal member.id  user.id %}
+		  <li role="presentation"><a href="/userpage/update/" taget="subpage">编辑资料</a></li>
+		  {% endifequal %}
+		</ul>
+
+    {% for i in arts %}
+        <div class="preview row" id="member_arts" style="padding:0px 10px 0 10px">
+            <div class="preview-info">
+                <a href="/article/{{i.id}}/"><h3>{{i.title}}</h3></a>
+                <p class="fad">{{i.detail|striptags|truncatechars:500|safe}} </p>
+                <p></p>
+                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-th-list fad"> </span>&nbsp;<a href="/?catalog={{i.section}}"><span class="fad">{{i.section}}</span></a>
+                &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{{i.tag}}</span>
+                <span class="pull-right">
+                    <span><a href="/article/{{i.id}}/" target="__blank">查看全文</a></span>
+                </span>
+            </div>
+        </div>
+        <span class="sep" style="padding-bottom:0"></span>
+    {% endfor %}
+
+    {% for i in comments %}
+    <div class="row" id="member_comments" style="padding-left:20px">
+    	<p>于 {{i.comment_time}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
+    	<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
+    </div>
+    <span class="sep"></span>
+    {% endfor %}
+
 	</div>
+
 {% endblock %}

@@ -5,6 +5,12 @@ html,body {
 	height: 100%;
 }
 
+a,a:hover { 
+	text-decoration:none;
+	color:#5555aa;
+
+} 
+
 img{
     width: auto;
     height: auto;
@@ -89,12 +95,10 @@ div.container-fluid {
 
 .card .preview div {
     display: block;
-	padding:0 20px 0 20px;
+	padding:0 20px 10px 20px;
 }
 
-.card a {
-	color:#d73a49; 
-}
+
 
 .card p {
 	padding:0 10px 0 10px;
@@ -185,7 +189,10 @@ span.floor {
 	padding-right:20px;
 }
 
-
+.btn-sidebar {
+	display:block;
+	margin:auto;
+}
 
 
 
