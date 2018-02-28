@@ -34,30 +34,37 @@ tinyMCE.init(
 
 {% block content %}
 <div class="card margintop article-content">
-	<span class="fad">作者：<a href="#"><img src="/static/{{art.author_id.avatar}}" class="avatar-img">&nbsp;{{art.author}}</a> </span>
+	<span class="fad">作者：<a href="#"><img src="/{{art.author_id.avatar}}" class="avatar-img">&nbsp;{{art.author}}</a> </span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">阅读数：{{art.readtime}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">评论数：{{comments|length}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">发表于：{{art.publish_time}}</span>
-	<span class="sep margintop"></span>
+    {% ifequal request.user.id  art.author_id.id %}
+    <span class="fad pull-right" ><button  class="btn btn-primary" onclick="window.location.href='/article/update/{{art.id}}/'">编辑</button></span>
+    {% else %}
+    {{request.user.id}},{{art.author_id.id}}
+    {% endifequal %}
+    <p></p>
+    <span class="fad">标签：{{art.tag}}</span>
+	<span class="sep margintop" ></span>
 	<div class="ad1"> <h3>广告位</h3> </div>
     {{art.detail|safe|escape }}
 </div>
 
 <div class="card">
-		<p>评论</p>
+	<p>评论</p>
 	<span class="sep"></span>
 	{% for i in comments %}
     <div class="comment row">
-        <div class="comment-avatar" style="background:url(/static/{{i.user.avatar}}) no-repeat;background-position:10px 20px;background-size:60px 60px;">
+        <div class="comment-avatar" style="background:url(/{{i.user.avatar}}) no-repeat;background-position:10px 20px;background-size:60px 60px;">
 		{{i.user}}
         </div>
         <div class="comment-info">
           	<span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.comment_time}}</span>  
-			<span class="pull-right fad floor" id="floor_{{forloop.counter}}"># {{forloop.counter}}</span>
-          	<span class="pull-right">
+			<span class="pull-right ico fad floor" id="floor_{{forloop.counter}}"># {{forloop.counter}}</span>
+          	<span class="pull-right ico ">
 					<a href="#"><img style="inline-block" src="/static/image/reply.png" align="absmiddle" border="0" alt="Reply"></a>
           	</span>
 			<p></p>
@@ -69,6 +76,8 @@ tinyMCE.init(
 </div>
 
 <div class="card">
+    <p>发布评论</p>
+
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -76,12 +85,13 @@ tinyMCE.init(
         {% endfor %}
     </ul>
     {% endif %}
-    <form method="post" novalidate>
+    <form class="textarea" method="post" novalidate>
     	{% csrf_token %}
 		<input type='hidden' name="article" value="{{art.id}}" />
 		<input type='hidden' name="user" value="{{request.user.id}}" />
 		{{comment_form.comment}}
-    	<button class="btn btn-default pull-right" type="submit">发表</button>
+        <p></p>
+    	<button class="btn btn-default pull-right" type="submit">发布</button>
     </form>
 
 </div>

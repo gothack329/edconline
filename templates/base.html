@@ -10,6 +10,9 @@
     	<meta name="author" content="物志">
 	    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     	<link href="/static/bootstrap/css/style.css" rel="stylesheet">
+    	<script src="/static/bootstrap/js/jquery.min.js"></script>
+    	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    	<script src="/static/bootstrap/js/scripts.js"></script>
 		<link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
 		{% block header %}		
 		<title>{% if title %}{{title}} - {% endif %}物志</title>
@@ -98,6 +101,8 @@
 					        <div class="card">
 					                <h4>主题分区</h4>
 					                <span class="sep"></span>
+					                <p><a href="/">全部</a></p>
+					                <span class="sep"></span>
 					                {% for i in secs %}
 					                        <p><a href="/?catalog={{i.name}}">{{i.name}}</a></p>
 					                        <span class="sep"></span>
@@ -132,8 +137,6 @@
 	</footer>
 
 
-    <script src="/static/bootstrap/js/jquery.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/bootstrap/js/scripts.js"></script>
+
 	</body>
 </html>

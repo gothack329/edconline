@@ -106,7 +106,7 @@ div.container-fluid {
 	height:130px;
 }
 
-.pull-right {
+.pull-right.ico {
 	padding:0 10px 0 10px;
 }
 
@@ -167,13 +167,9 @@ span.floor {
 	color: white;
 }
 
-
-
-
-
-
-
-
+.textarea {
+	padding-bottom: 40px;
+}
 
 
 

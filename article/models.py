@@ -2,7 +2,7 @@
 from django.db import models
 from tinymce.models import HTMLField,TinyMCE
 from django.contrib.auth.models import User
-from django.forms import ModelForm,Textarea
+from django.forms import *
 from userpage.models import *
 #from django.conf import settings
 #from tagging.fields import TagField
@@ -50,9 +50,15 @@ class Article(models.Model):
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title','author','section','tag','cover','detail']
+        fields = ['title','author','author_id','section','tag','cover','detail']
         widgets = {
-                    'detail':TinyMCE(attrs={'cols':'100%','rows':50}),
+                    'detail':TinyMCE(attrs={'cols':'100%','rows':30}),
+                    'cover':ClearableFileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
+                    'tag':TextInput(attrs={'class':'form-control','placeholder':"添加标签,回车确认",'data-role':'tagsinput'}),
+                    'author':TextInput(attrs={'class':'form-control','placeholder':"署名"}),
+                    'title':TextInput(attrs={'style':'width:50%','class':'form-control','placeholder':"标题"}),
+                    'section':widgets.Select(choices=Section.objects.values_list('id','name'),attrs={'class':'form-control','placeholder':"标题"}),
+                
                 }
 
 
@@ -62,7 +68,7 @@ class Comment(models.Model):
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0) 
     comment_time = models.DateTimeField(auto_now_add=True,editable=False)
     comment = HTMLField()
-    ip = models.GenericIPAddressField()
+    ip = models.GenericIPAddressField(blank=True,null=True,default='0.0.0.0')
     clickcount = models.IntegerField(default=0)
     refer = models.CharField(max_length=5096,default='none')
     agent = models.CharField(max_length=5096,default='none')

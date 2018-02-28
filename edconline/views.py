@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.db.models import Q
-from django.template import Template,Context,loader,defaultfilters
+from django.template import Template,defaultfilters,RequestContext
 from django.shortcuts import render_to_response
 from article.models import *
 import os,random
@@ -30,6 +30,6 @@ def homepage(request):
     else:
         arts = Article.objects.all().order_by('-publish_time')
 
-    return render(request,'index.html',{'cover':cover,'username':username,'arts':arts},[globalarg.settings]) 
+    return render(request,'index.html',{'cover':cover,'arts':arts}) 
 
 
