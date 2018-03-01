@@ -1,17 +1,41 @@
 {% extends "base.html"%}
-{% load upto %}
+{% load timetonow %}
 {% block header %}
-<title>[ {{request.user}} ]用户详情 - 物志</title>
+<title> 物志 > {{request.user}} </title>
 <script type="text/javascript">
 $(function(){  
-  $(".detail-tab").find(".profile-tab:first").show();          
-  $("#tab-nav li").on("mouseover",function(){  
+  $(".detail-tab").find(".profile-tab:first").show();   
+  $("#tab-nav").find("li:first").addClass("active");            
+  $("#tab-nav li").on("click",function(){  
      var index=$(this).index();  
      $(this).parent().next().find(".profile-tab").hide().eq(index).show();   
      $(this).addClass("active").siblings().removeClass("active");  
   })  
 }) 
 </script>
+    {% if user_form.errors %}
+        {% for field in user_form %}
+            {% for error in field.errors %}
+                <script type="text/javascript">
+                $.notify({
+                    // options
+                    message: '{{ error|escape }}',
+                },{
+                    // settings
+                    type: 'warning',
+                    delay: 5000,
+                    timer: 1000,
+                    animate: {
+                        enter: 'animated flipInY',
+                        exit: 'animated flipOutX'
+                    },
+                },);
+               </script>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}  
+
+
 {% endblock %}
 
 {% block banner %}
@@ -20,62 +44,60 @@ $(function(){
     </div>
 {% endblock %}
 {% block content%}
-	<div class="card">
-		<div class="usercard row">
-	
-		    <div class="usercard-avatar" style="background:url(/{{member.profile.avatar}}) no-repeat;background-size:80px 80px;">
-		    </div>
-		    <div class="usercard-info">
-		    	<p>
-		    		<span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
-		    			{{member.username}}
-		    		</span> 
-		    	</p>	
-		    	<p>
-		    		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span 	class="fad">	
-		    			{{member.profile.point}}
-		    		</span> &nbsp;&nbsp;&nbsp;
-		    		{% ifequal member.id  user.id %}
-		    		{% ifnotequal user.msg 0 %}
-		    		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad"	 alt="未读提醒"> 
-		    		{% else %}
-		    		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" > </span>&nbsp;<span class="fad" alt="未读提醒">
-		    		{% endifnotequal %}
-		    			{{user.msg}}
-		    		</span> &nbsp;&nbsp;&nbsp;
-		    		{% endifequal %}
-		    	</p>	
-		    	<p> 本站第 {{member.id}} 位会员，于 {{member.date_joined}} 注册，最近一次登录于 {{member.last_login}}. 
-		    </div>
-		</div>
-	</div>
+    <div class="card">
+        <div class="usercard row">
+    
+            <div class="usercard-avatar" style="background:url(/{{member.profile.avatar}}) no-repeat;background-size:80px 80px;">
+            </div>
+            <div class="usercard-info">
+                <p>
+                    <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
+                        {{member.username}}
+                    </span> 
+                </p>    
+                <p>
+                    <img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > 
+                    <span class="fad">    
+                        {{member.profile.point}}
+                    </span> &nbsp;&nbsp;&nbsp;
+                    {% ifequal member.id  user.id %}
+                    <img src="/static/image/notice.png" width="16" height="16" style="display:inline-block;padding-bottom: 2px;width:16px;height:20px" alt="未读提醒" > 
+                    <span class="fad" alt="未读提醒">
+                        0{{user.msg}}
+                    </span> &nbsp;&nbsp;&nbsp;
+                    {% endifequal %}
+                </p>    
+                <p> 本站第 {{member.id}} 位会员，于 {{member.date_joined}} 加入，最近一次登录于 {{member.last_login}}. 
+            </div>
+        </div>
+    </div>
 
-	<div class="card">
-		<ul class="nav nav-tabs" id="tab-nav">
-		  <li role="presentation" >
-		  	<a href="javascript:;">文章列表<span class="badge">{{arts|length}}</span></a>
-		  </li>
-		  <li role="presentation" >
-		  	<a href="javascript:;">评论列表<span class="badge">{{comments|length}}</span></a>
-		  </li>
-		  {% ifequal member.id  user.id %}
-		  <li role="presentation" >
-		  	<a href="javascript:;">消息提醒</a>
-		  </li>
-		  <li role="presentation" >
-		  	<a href="javascript:;">编辑资料</a>
-		  </li>
-		  {% endifequal %}
-		</ul>
-	<div class="detail-tab">
-		<div class="profile-tab" >
-    	{% for i in arts %}
+    <div class="card">
+        <ul class="nav nav-tabs" id="tab-nav">
+          <li role="presentation" >
+              <a href="javascript:;">文章列表<span class="badge">{{arts|length}}</span></a>
+          </li>
+          <li role="presentation" >
+              <a href="javascript:;">评论列表<span class="badge">{{comments|length}}</span></a>
+          </li>
+          {% ifequal member.id  user.id %}
+          <li role="presentation" >
+              <a href="javascript:;">消息提醒</a>
+          </li>
+          <li role="presentation" >
+              <a href="javascript:;">编辑资料</a>
+          </li>
+          {% endifequal %}
+        </ul>
+    <div class="detail-tab">
+        <div class="profile-tab" >
+        {% for i in arts %}
         <div class="preview row member_arts" style="padding:10px 10px 10px 10px;border-bottom: 1px solid #e2e2e2">
             <div class="preview-info">
                 <a href="/article/{{i.id}}/"><h4>{{i.title}}</h4></a>
                 <p class="fad">{{i.detail|striptags|truncatechars:500|safe}} </p>
                 <p></p>
-                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time|timesince}}前</span>  
+                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time|timetonow}}前</span>  
                 &nbsp;&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
                 &nbsp;&nbsp;&nbsp;
@@ -89,38 +111,47 @@ $(function(){
                 </span>
             </div>
         </div>
-    	{% endfor %}
-		</div>
-	
-    	<div class="profile-tab" >
-    	<p></p>
-    	{% for i in comments %}
-    	<div class="row member_comments" style="padding:10px 20px 10px 20px;border-bottom: 1px solid #e2e2e2">
-    		<p style="background-color: #eee">于 {{i.comment_time}}前 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
-    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</a></p>
-    	</div>
-	
-    	{% endfor %}
-		</div>
-	
-		{% ifequal member.id  user.id %}
-		<div class="profile-tab" >
-		{# 消息提醒 #}
-    	<div class="row member_comments" style="padding-left:20px">
-    		<p>于 {{i.comment_time|timesince}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 	<a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
-    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
-    	</div>
-		</div>
-	
-		<div class="profile-tab" >
-		{# 编辑资料 #}
-    	<div class="row member_comments" style="padding-left:20px">
-    		<p>于 {{i.comment_time}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 	<a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
-    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
-    	</div>
-		</div>
-		{% endifequal %}
-	</div>
-	</div>
+        {% endfor %}
+        </div>
+    
+        <div class="profile-tab" >
+        <p></p>
+        {% for i in comments %}
+        <div class="row member_comments" style="padding:10px 20px 10px 20px;border-bottom: 1px solid #e2e2e2">
+            <p style="background-color: #eee">于 {{i.comment_time|timetonow}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
+            <p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</a></p>
+        </div>
+    
+        {% endfor %}
+        </div>
+    
+        {% ifequal member.id  user.id %}
+        <div class="profile-tab" >
+        {# 消息提醒 #}
+        <div class="row member_comments" style="padding-left:20px">
+ 
+        </div>
+        </div>
+    
+        <div class="profile-tab" >
+        {# 编辑资料 #}
+            <p></p>
+            <form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
+              {% csrf_token %}
+              <input type="hidden" name="username" value="{{user.user}}">
+
+              <p style="text-align:center"><label for="avatar">头像：</label>{{ profile_form.avatar }}</p>
+              <hr>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="first_name">名：</label>{{ user_form.first_name}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="last_name">姓：</label>{{ user_form.last_name}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="email">邮箱：</label>{{ user_form.email}}</p>
+
+              <button type="submit" class="btn btn-default pull-right">保存资料</button>
+            </form>
+        </div>
+
+        {% endifequal %}
+    </div>
+    </div>
 
 {% endblock %}

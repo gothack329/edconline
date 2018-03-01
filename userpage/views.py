@@ -18,29 +18,25 @@ def profile(request, username):
 
     arts = Article.objects.filter(author_id=inst_profile)
     comments = Comment.objects.filter(user=inst_profile).filter(invalid='N')
-    return render(request, 'userpage/profile.html', {'member':inst_user,'arts':arts,'comments':comments})
+    
 
-
-@login_required
-@transaction.atomic
-def update_profile(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, '用户资料更新成功!')
+            #messages.success(request, '用户资料更新成功!')
             return redirect('.')
             #return redirect('settings:profile')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, user_form.errors)
             #messages.error(request, _('Please correct the error below.'))
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'userpage/profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
+
+    return render(request, 'userpage/profile.html', {'member':inst_user,'arts':arts,'comments':comments,'user_form': user_form,
+'profile_form': profile_form})

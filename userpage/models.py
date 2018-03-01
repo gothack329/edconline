@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm,Textarea,TextInput,ClearableFileInput
+from django.forms import ModelForm,Textarea,TextInput,ClearableFileInput,FileInput
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -46,5 +46,5 @@ class ProfileForm(ModelForm):
             'avatar':{'required': '请上传头像'},
             }
         widgets = {
-           'avatar':ClearableFileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"头像"}),
+           'avatar':ClearableFileInput(attrs={'class':'form-control','placeholder':"头像"}),
             }

@@ -1,36 +1,5 @@
 
 {% block content%}
 
-	{% if user_form.errors %}
-	    {% for field in user_form %}
-	        {% for error in field.errors %}
-	            <script type="text/javascript">
-	            $.notify({
-	                // options
-	                message: '{{ error|escape }}',
-	            },{
-	                // settings
-	                type: 'warning',
-	                delay: 5000,
-	                timer: 1000,
-	                animate: {
-	                    enter: 'animated flipInY',
-	                    exit: 'animated flipOutX'
-	                },
-	            },);
-	           </script>
-	        {% endfor %}
-	    {% endfor %}
-	{% endif %}  
-
-	<div class="card">
-		<p></p>
-		<form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
-		  {% csrf_token %}
-		  {{ user_form.as_p }}
-		  {{ profile_form.as_p }}
-		  <button type="submit">保存资料</button>
-		</form>
-	</div>
 
 {% endblock %}

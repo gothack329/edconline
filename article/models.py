@@ -66,7 +66,7 @@ class ArticleForm(ModelForm):
             }
         widgets = {
            'detail':TinyMCE(attrs={'cols':'100%','rows':30}),
-           'cover':ClearableFileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
+           'cover':FileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
            'tag':TextInput(attrs={'class':'form-control','placeholder':"添加标签,回车确认",'data-role':'tagsinput'}),
            'author':TextInput(attrs={'class':'form-control','placeholder':"署名"}),
            'title':TextInput(attrs={'style':'width:50%','class':'form-control','placeholder':"标题"}),

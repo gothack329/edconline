@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-
+{% load timetonow %}
 <html>
     <head>
         <meta charset="utf-8">
@@ -70,8 +70,8 @@
                             {% ifnotequal user.id None %}
 						    <div class="usercard row">
 
-						        <div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
-						        </div>
+						        <a href="/userpage/member/{{user.user}}/"><div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
+						        </div></a>
 						        <div class="usercard-info">
 						        	<p>
 						        		<a href="/userpage/member/{{user.user}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
@@ -82,13 +82,9 @@
 						        		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span class="fad">	
 						        			{{user.point}}
 						        		</span> &nbsp;&nbsp;&nbsp;
-						        		{% ifnotequal user.msg 0 %}
-						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" style="color:gold"> </span>&nbsp;<span class="fad" alt="未读提醒"> 
-						        		{% else %}
-						        		<span class="glyphicon glyphicon-bell fad" alt="未读提醒" > </span>&nbsp;<span class="fad" alt="未读提醒">
-						        		{% endifnotequal %}
-
-						        			{{user.msg}}
+                                        <img src="/static/image/notice.png" width="16" height="16" style="display:inline-block;padding-bottom: 2px;width:16px;height:20px" alt="未读提醒" > 
+                                        <span class="fad" alt="未读提醒">
+						        			0{{user.msg}}
 						        		</span> &nbsp;&nbsp;&nbsp;
 						        	</p>			 
 						        </div>

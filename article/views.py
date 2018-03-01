@@ -20,13 +20,14 @@ def detail(request, article_id):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST,instance=None)
         
-        instance = comment_form.save(commit=False)
-        instance.ip = request.META['REMOTE_ADDR']
+        if comment_form.is_valid():
+            instance = comment_form.save(commit=False)
+            instance.ip = request.META['REMOTE_ADDR']
 
-        instance.save()
-        return redirect('.')
-        #else:
-        #    messages.error(request, 'Please correct the error below.')
+            instance.save()
+            return redirect('.')
+        else:
+            messages.error(request, comment_form.errors)
     else:
         art.readtime = art.readtime + 1
         art.save(update_fields=['readtime'])
