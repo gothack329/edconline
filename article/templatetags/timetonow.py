@@ -15,11 +15,11 @@ def timetonow(value):
     delta = now-valuetime
     s = delta.seconds
     if s>86400:
-    	return '%d天' % (int(s/86400))
+    	return '%d天前' % (int(s/86400))
     elif s>3600:
-    	return '%d小时' % (int(s/3600))
+    	return '%d小时前' % (int(s/3600))
     elif s>120:
-    	return '%d分钟' % (int(s/120))
+    	return '%d分钟前' % (int(s/120))
     else:
     	return '刚刚' 
 

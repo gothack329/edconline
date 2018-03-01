@@ -41,7 +41,7 @@ tinyMCE.init(
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">评论数：{{comments|length}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="fad">发表于：{{art.publish_time|timetonow}}前</span>
+    <span class="fad">发表于：{{art.publish_time|timetonow}}</span>
     {% ifequal request.user.id  art.author_id.id %}
     <span class="fad pull-right" ><button  class="btn btn-primary" onclick="window.location.href='/article/update/{{art.id}}/'">编辑</button></span>
     {% endifequal %}
