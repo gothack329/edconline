@@ -54,16 +54,16 @@ tinyMCE.init(
 
 <div class="card">
     <p>评论</p>
-    <span class="sep"></span>
+    
     {% for i in comments %}
-    <div class="comment row">
+    <div class="comment row {% ifequal i.invalid 'Y' %}invalid{% endifequal %}">
         <div class="comment-avatar" style="background:url(/{{i.user.avatar}}) no-repeat;background-position:10px 20px;background-size:60px 60px;">
             <a href="/userpage/member/{{i.user}}/">{{i.user}}</a>
         </div>
-        <div class="comment-info">
+        <div class="comment-info ">
 
               <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.comment_time}}</span> &nbsp;&nbsp; 
-            {% ifequal request.user.id  art.author_id.id %}
+            {% ifequal request.user.id  i.user.id %}
                 <span class="ico fad" style="padding:2px;border:1px solid gray">作者</span>
             {% endifequal %}
             <span class="pull-right ico fad floor" id="comment_{{i.id}}"># {{forloop.counter}}</span>
@@ -72,10 +72,15 @@ tinyMCE.init(
               </span>
 
             <p></p>
+            {% ifequal i.invalid 'Y' %}
+                <p style="font-style:italic;">“此评论违规”</p>
+            {% else %}  
               {{i.comment|safe|escape}}
+            {% endifequal %}
+            
        </div>
     </div>
-    <span class="sep"></span>
+    
     {% endfor %}
 </div>
 

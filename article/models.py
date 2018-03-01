@@ -4,6 +4,8 @@ from tinymce.models import HTMLField,TinyMCE
 from django.contrib.auth.models import User
 from django.forms import *
 from userpage.models import *
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 #from django.conf import settings
 #from tagging.fields import TagField
 #from tagging.models import Tag
@@ -35,7 +37,8 @@ class Article(models.Model):
     tag = models.CharField(max_length=128, blank=True, null=True)
     visible = models.CharField(choices=(('Y','是'),('N','否')),max_length=64,default='N')
     readtime = models.IntegerField(default=0)
-    #comment_count = models.IntegerField(default=0)
+    comment_count = models.IntegerField(default=0)
+    #update_time = models.DateTimeField(auto_now=True,blank=True,null=True)
 
     #def set_tags(self, tags):
     #    Tag.objects.update_tags(self, tags)
@@ -47,6 +50,7 @@ class Article(models.Model):
     class Meta:
         db_table ="article"
         ordering = ['-publish_time']
+
 
 class ArticleForm(ModelForm):
     class Meta:
@@ -76,6 +80,7 @@ class Comment(models.Model):
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0) 
     comment_time = models.DateTimeField(auto_now_add=True,editable=False)
     comment = HTMLField()
+    invalid = models.CharField(choices=(('Y','是'),('N','否')),max_length=64,default='N')
     ip = models.GenericIPAddressField(blank=True,null=True,default='0.0.0.0')
     clickcount = models.IntegerField(default=0)
     refer = models.CharField(max_length=5096,default='none')
@@ -91,7 +96,15 @@ class Comment(models.Model):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment 
-        fields = ('article','user','comment','ip')
+        fields = ('article','user','comment','ip','invalid')
         widgets = {
                 'comment':TinyMCE(attrs={'cols':'100%','rows':10}),
                 }
+
+
+@receiver(post_save, sender=Comment)
+def comment_count(sender, created, instance, **kwargs):
+    if created:
+        art = Article.objects.get(pk=instance.article.id)
+        art.comment_count += 1
+        art.save()

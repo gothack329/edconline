@@ -10,12 +10,14 @@ from article.models import *
 
 # Create your views here.
 
+@login_required
+@transaction.atomic
 def profile(request, username):
     inst_user = User.objects.get(username=username)
     inst_profile = Profile.objects.get(user=inst_user)
 
     arts = Article.objects.filter(author_id=inst_profile)
-    comments = Comment.objects.filter(user=inst_profile)
+    comments = Comment.objects.filter(user=inst_profile).filter(invalid='N')
     return render(request, 'userpage/profile.html', {'member':inst_user,'arts':arts,'comments':comments})
 
 

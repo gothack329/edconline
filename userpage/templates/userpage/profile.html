@@ -1,7 +1,17 @@
 {% extends "base.html"%}
-
+{% load upto %}
 {% block header %}
 <title>[ {{request.user}} ]用户详情 - 物志</title>
+<script type="text/javascript">
+$(function(){  
+  $(".detail-tab").find(".profile-tab:first").show();          
+  $("#tab-nav li").on("mouseover",function(){  
+     var index=$(this).index();  
+     $(this).parent().next().find(".profile-tab").hide().eq(index).show();   
+     $(this).addClass("active").siblings().removeClass("active");  
+  })  
+}) 
+</script>
 {% endblock %}
 
 {% block banner %}
@@ -41,43 +51,76 @@
 	</div>
 
 	<div class="card">
-		<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="/article/{{member.username}}/" target="subpage">文章列表<span class="badge">{{arts|length}}</span></a></li>
-		  <li role="presentation"><a href="/article/comment/{{member.username}}/" target="subpage">评论列表<span class="badge">{{comments|length}}</span></a></li>
+		<ul class="nav nav-tabs" id="tab-nav">
+		  <li role="presentation" >
+		  	<a href="javascript:;">文章列表<span class="badge">{{arts|length}}</span></a>
+		  </li>
+		  <li role="presentation" >
+		  	<a href="javascript:;">评论列表<span class="badge">{{comments|length}}</span></a>
+		  </li>
 		  {% ifequal member.id  user.id %}
-		  <li role="presentation"><a href="/userpage/update/" taget="subpage">编辑资料</a></li>
+		  <li role="presentation" >
+		  	<a href="javascript:;">消息提醒</a>
+		  </li>
+		  <li role="presentation" >
+		  	<a href="javascript:;">编辑资料</a>
+		  </li>
 		  {% endifequal %}
 		</ul>
-
-    {% for i in arts %}
-        <div class="preview row" id="member_arts" style="padding:0px 10px 0 10px">
+	<div class="detail-tab">
+		<div class="profile-tab" >
+    	{% for i in arts %}
+        <div class="preview row member_arts" style="padding:10px 10px 10px 10px;border-bottom: 1px solid #e2e2e2">
             <div class="preview-info">
-                <a href="/article/{{i.id}}/"><h3>{{i.title}}</h3></a>
+                <a href="/article/{{i.id}}/"><h4>{{i.title}}</h4></a>
                 <p class="fad">{{i.detail|striptags|truncatechars:500|safe}} </p>
                 <p></p>
-                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time}}</span>  
+                <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time|timesince}}前</span>  
                 &nbsp;&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span>
                 &nbsp;&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-th-list fad"> </span>&nbsp;<a href="/?catalog={{i.section}}"><span class="fad">{{i.section}}</span></a>
                 &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-eye-open fad"> </span>&nbsp;<span class="fad">{{i.readtime}}</span> 
+                &nbsp;&nbsp;&nbsp; 
                 <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{{i.tag}}</span>
                 <span class="pull-right">
                     <span><a href="/article/{{i.id}}/" target="__blank">查看全文</a></span>
                 </span>
             </div>
         </div>
-        <span class="sep" style="padding-bottom:0"></span>
-    {% endfor %}
-
-    {% for i in comments %}
-    <div class="row" id="member_comments" style="padding-left:20px">
-    	<p>于 {{i.comment_time}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
-    	<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
-    </div>
-    <span class="sep"></span>
-    {% endfor %}
-
+    	{% endfor %}
+		</div>
+	
+    	<div class="profile-tab" >
+    	<p></p>
+    	{% for i in comments %}
+    	<div class="row member_comments" style="padding:10px 20px 10px 20px;border-bottom: 1px solid #e2e2e2">
+    		<p style="background-color: #eee">于 {{i.comment_time}}前 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
+    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</a></p>
+    	</div>
+	
+    	{% endfor %}
+		</div>
+	
+		{% ifequal member.id  user.id %}
+		<div class="profile-tab" >
+		{# 消息提醒 #}
+    	<div class="row member_comments" style="padding-left:20px">
+    		<p>于 {{i.comment_time|timesince}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 	<a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
+    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
+    	</div>
+		</div>
+	
+		<div class="profile-tab" >
+		{# 编辑资料 #}
+    	<div class="row member_comments" style="padding-left:20px">
+    		<p>于 {{i.comment_time}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 	<a href="/article/{{i.article.id}}/">{{i.article}}</a> 】
+    		<p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</p>
+    	</div>
+		</div>
+		{% endifequal %}
+	</div>
 	</div>
 
 {% endblock %}

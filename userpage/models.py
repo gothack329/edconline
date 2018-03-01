@@ -30,11 +30,12 @@ def save_user_profile(sender, instance, **kwargs):
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('username','first_name', 'last_name', 'email')
         widgets = {
-           'email':TextInput(attrs={'class':'form-control','placeholder':"E-mail"}),
-           'first_name':TextInput(attrs={'class':'form-control','placeholder':"First Name"}),
-           'last_name':TextInput(attrs={'class':'form-control','placeholder':"Last Name"}),
+            'username':TextInput(attrs={'class':'form-control','placeholder':"Username"}),
+            'email':TextInput(attrs={'class':'form-control','placeholder':"E-mail"}),
+            'first_name':TextInput(attrs={'class':'form-control','placeholder':"First Name"}),
+            'last_name':TextInput(attrs={'class':'form-control','placeholder':"Last Name"}),
            }
 
 class ProfileForm(ModelForm):
