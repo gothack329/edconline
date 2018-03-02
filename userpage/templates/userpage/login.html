@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load timetonow %}
+
+{% block header %}
+<title> 物志 › 登录 </title>
+{% endblock %}
+
+{% block banner %}
+    <div style="height:30px">
+        <p></p>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+        <form class="form-inline " method="post" action="" novalidate>{% csrf_token %}
+        	<a href="/">物志</a> › 登录
+        	<hr>
+            <p style="text-align:center">
+            	<label style="width:100px;text-align:right" for="username">用户名：</label>
+            	<input type="text" name="username" value="gothack" class="form-control" placeholder="请输入用户名" maxlength="12" minlength="6" required="" id="id_username">
+            </p>
+
+            <p style="text-align:center">
+            	<label style="width:100px;text-align:right" for="password">密码：</label>
+            	<input type="password" name="password" class="form-control" placeholder="请输入密码" maxlength="12" minlength="6" required="" id="id_password">
+            </p>
+
+            <p style="text-align:center">
+            	<label style="width:100px;text-align:right"></label>
+            	<img style="display:inline-block;" id="check_code_img" src="/utils/check_code/" onclick="refresh_check_code(this)"></p>
+            <p style="text-align:center">
+            	<label style="width:100px;text-align:right" for="check_code">验证码：</label>
+            	<input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">
+            </p>
+
+            <p style="text-align:center">
+                <label style="width:100px;text-align:right"><input type="checkbox" value="1" name="auto_login"></label>
+                 一个月内自动登陆
+                <span class="pull-right"><a href="#">忘记密码？</a></span>
+            </p>
+            <p style="text-align:center">
+            	<button class="btn btn-primary" type="submit" >登录</button>
+            </p>
+        </form>
+    </div>
+
+
+    {% if errors %}
+            {% for error in errors %}
+                <script type="text/javascript">
+                $.notify({
+                    message: '{{ error|escape }}',
+                },{
+                    type: 'warning',
+                    delay: 5000,
+                    timer: 1000,
+                    animate: {
+                        enter: 'animated flipInY',
+                        exit: 'animated flipOutX'
+                    },
+                },);
+               </script>
+            {% endfor %}
+    {% endif %}  
+
+
+{% endblock %}

@@ -34,7 +34,7 @@
                 &nbsp;&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-eye-open fad"> </span>&nbsp;<span class="fad">{{i.readtime}}</span> 
                 &nbsp;&nbsp;&nbsp; 
-                <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{{i.tag}}</span>
+                <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{% if i.tag %}{{i.tag}}{% endif %}</span>
                 <span class="pull-right">
                     <span><a href="/article/{{i.id}}/">阅读全文</a></span>
                 </span>

@@ -35,7 +35,6 @@ $(function(){
         {% endfor %}
     {% endif %}  
 
-
 {% endblock %}
 
 {% block banner %}
@@ -128,6 +127,7 @@ $(function(){
         {% ifequal member.id  user.id %}
         <div class="profile-tab" >
         {# 消息提醒 #}
+        <p></p>
         {% for i in notice %}
         <div class="row member_comments" style="padding-left:20px">
           <p style="background-color: #eee;padding:2px"><a href="/userpage/member/{{i.comment.user}}/">{{i.comment.user}}</a> 在 <a href="/article/{{i.comment.article.id}}/">{{i.comment.article}}</a> 的评论中提到了您 <span class="pull-right">{{i.comment_time|timetonow}}</span></p>

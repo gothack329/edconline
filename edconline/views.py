@@ -8,6 +8,7 @@ import os,random
 import userpage 
 from . import globalarg
 
+
 # Create your views here.
 
 def homepage(request):
@@ -31,5 +32,12 @@ def homepage(request):
         arts = Article.objects.all().order_by('-publish_time')
 
     return render(request,'index.html',{'cover':cover,'arts':arts}) 
+
+
+
+
+
+
+
 
 
