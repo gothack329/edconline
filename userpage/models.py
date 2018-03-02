@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm,Textarea,TextInput,ClearableFileInput,FileInput
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+#from notification.models import Msg
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Profile(models.Model):
     #birth_date = models.DateField(null=True, blank=True)
     avatar = models.ImageField(upload_to='static/avatar/', blank=True, null=True)
     point = models.IntegerField()
-    unread = models.IntegerField()
+    unread = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
@@ -21,11 +22,12 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(user=instance,point=10)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
 
 class UserForm(ModelForm):
     class Meta:

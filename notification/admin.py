@@ -3,5 +3,5 @@ from .models import *
 
 
 class MsgAdmin(admin.ModelAdmin):
-    list_display=('id','user','mention_user','msg_time')
+    list_display=('id','comment_time','unread','comment',)
 admin.site.register(Msg,MsgAdmin)

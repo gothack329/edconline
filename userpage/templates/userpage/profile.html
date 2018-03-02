@@ -4,13 +4,13 @@
 <title> 物志 > {{request.user}} </title>
 <script type="text/javascript">
 $(function(){  
-  $(".detail-tab").find(".profile-tab:first").show();   
-  $("#tab-nav").find("li:first").addClass("active");            
-  $("#tab-nav li").on("click",function(){  
-     var index=$(this).index();  
-     $(this).parent().next().find(".profile-tab").hide().eq(index).show();   
-     $(this).addClass("active").siblings().removeClass("active");  
-  })  
+    $(".detail-tab").find(".profile-tab:first").show();   
+    $("#tab-nav").find("li:first").addClass("active");            
+    $("#tab-nav li").on("click",function(){  
+       var index=$(this).index();  
+       $(this).parent().next().find(".profile-tab").hide().eq(index).show();   
+       $(this).addClass("active").siblings().removeClass("active");  
+    })  
 }) 
 </script>
     {% if user_form.errors %}
@@ -75,14 +75,14 @@ $(function(){
     <div class="card">
         <ul class="nav nav-tabs" id="tab-nav">
           <li role="presentation" >
-              <a href="javascript:;">文章列表<span class="badge">{{arts|length}}</span></a>
+              <a href="javascript:;">文章列表 &nbsp;<span class="badge">{{arts|length}}</span></a>
           </li>
           <li role="presentation" >
-              <a href="javascript:;">评论列表<span class="badge">{{comments|length}}</span></a>
+              <a href="javascript:;">评论列表 &nbsp;<span class="badge">{{comments|length}}</span></a>
           </li>
           {% ifequal member.id  user.id %}
           <li role="presentation" >
-              <a href="javascript:;">消息提醒</a>
+            <a href="javascript:;">消息提醒 &nbsp; {% ifnotequal unread 0 %}<span class="badge" style="background-color:#d73a49">{{unread}}</span>{% endifnotequal %}</a>
           </li>
           <li role="presentation" >
               <a href="javascript:;">编辑资料</a>
@@ -117,8 +117,8 @@ $(function(){
         <div class="profile-tab" >
         <p></p>
         {% for i in comments %}
-        <div class="row member_comments" style="padding:10px 20px 10px 20px;border-bottom: 1px solid #e2e2e2">
-            <p style="background-color: #eee">于 {{i.comment_time|timetonow}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
+        <div class="row member_comments">
+            <p style="background-color: #eee;padding:2px">于 {{i.comment_time|timetonow}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
             <p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</a></p>
         </div>
     
@@ -128,10 +128,14 @@ $(function(){
         {% ifequal member.id  user.id %}
         <div class="profile-tab" >
         {# 消息提醒 #}
+        {% for i in notice %}
         <div class="row member_comments" style="padding-left:20px">
- 
+          <p style="background-color: #eee;padding:2px"><a href="/userpage/member/{{i.comment.user}}/">{{i.comment.user}}</a> 在 <a href="/article/{{i.comment.article.id}}/">{{i.comment.article}}</a> 的评论中提到了您 <span class="pull-right">{{i.comment_time|timetonow}}</span></p>
+            <p><a href="/article/{{i.comment.article.id}}/#comment_{{i.comment.id}}">{{i.comment|safe|escape}}</a></p>
         </div>
+        {% endfor %}
         </div>
+
     
         <div class="profile-tab" >
         {# 编辑资料 #}

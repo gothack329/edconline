@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'article',
     'userpage',
+    'notification',
 ]
 
 MIDDLEWARE = [

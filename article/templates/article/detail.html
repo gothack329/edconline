@@ -12,13 +12,20 @@ tinyMCE.init(
     'selector': 'textarea',
     'theme': 'modern',
     'plugins': ' textcolor save link image media preview codesample contextmenu table code lists fullscreen  insertdatetime  nonbreaking contextmenu directionality searchreplace wordcount visualblocks visualchars code fullscreen autolink lists  charmap print  hr anchor pagebreak textpattern',
-    'toolbar1': 'bold italic underline  fontsizeselect forecolor alignleft alignright aligncenter alignjustify | indent outdent bullist numlist link image media hr codesample preview',
+    'toolbar1': 'bold italic underline  fontsizeselect forecolor | alignleft alignright aligncenter alignjustify indent outdent   bullist numlist | link image media hr codesample preview',
     'contextmenu': 'formats | link image',
     'menubar': false,
     'statusbar': false,
     }
 
 );
+</script>
+<script type="text/javascript">
+function atuser(arg){
+    const content = tinyMCE.activeEditor.getContent();
+    tinyMCE.activeEditor.setContent(content+arg);
+    tinyMCE.execCommand('mceFocus',false,'id_comment');
+}
 </script>
 
 {% endblock %}
@@ -41,11 +48,12 @@ tinyMCE.init(
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">评论数：{{comments|length}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="fad">发表于：{{art.publish_time|timetonow}}</span>
+    
     {% ifequal request.user.id  art.author_id.id %}
     <span class="fad pull-right" ><button  class="btn btn-primary" onclick="window.location.href='/article/update/{{art.id}}/'">编辑</button></span>
     {% endifequal %}
     <p></p>
+    <span class="fad">发表于：{{art.publish_time|timetonow}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">标签：{% if arg.tag %}{{art.tag}}{% endif %}</span>
     <span class="sep margintop" ></span>
     <div class="ad1"> <h3>广告位</h3> </div>
@@ -62,13 +70,13 @@ tinyMCE.init(
         </div>
         <div class="comment-info ">
 
-              <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.comment_time|timetonow}}前</span> &nbsp;&nbsp; 
+              <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.comment_time|timetonow}}</span> &nbsp;&nbsp; 
             {% ifequal request.user.id  i.user.id %}
                 <span class="ico fad" style="padding:2px;border:1px solid gray">作者</span>
             {% endifequal %}
             <span class="pull-right ico fad floor" id="comment_{{i.id}}"># {{forloop.counter}}</span>
               <span class="pull-right ico ">
-                <a href="#"><img style="inline-block" src="/static/image/reply.png" align="absmiddle" border="0" alt="Reply"></a>
+                <a href="javascript:;" onclick="atuser('<a href=#comment_{{i.id}} >#{{forloop.counter}}</a> @<a class=mentioned_user href=/userpage/member/{{i.user}}>{{i.user}}</a>&nbsp;')"><img style="inline-block" src="/static/image/reply.png" align="absmiddle" border="0" alt="Reply"></a>
               </span>
 
             <p></p>

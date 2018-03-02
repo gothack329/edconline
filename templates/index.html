@@ -2,12 +2,17 @@
 {% load timetonow %}
 
 {% block banner %}
+    <div style="height:30px">
+        <p></p>
+    </div>
+{% endblock %}
+
 <div class="banner" style="background:url(/static/upload/{{cover}}) no-repeat;background-position:center;background-size:cover;">
     <div class="container">
             <h1>{% if title %}{{title}}{% endif %} </h1>
     </div>
 </div>
-{% endblock %}
+
 
 {% block content %}
 
