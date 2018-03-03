@@ -20,9 +20,11 @@ img{
 
 img.avatar-img {
 	display:inline-block;
-	width:16px;
+	width:18px;
 	height:18px;
-	padding-bottom:2px;
+	margin-bottom:2px;
+
+	border-radius:50%;
 }
 
 .margintop {
@@ -137,10 +139,15 @@ div.container-fluid {
 }
 
 .card .comment .comment-avatar {
-	margin:10px 0 0 20px;
+	margin:10px 0 10px 20px;
 	width:80px;
 	height:100px;
 	text-align:center;
+}
+.card .comment img.comment-avatar-img {
+	border-radius:50%;
+	width:80px;
+	height:80px;
 }
 
 .card .comment .comment-info {
@@ -184,6 +191,7 @@ span.floor {
 	margin:10px 0 0 20px;
 	width:80px;
 	height:80px;
+	border-radius:50%;
 }
 
 .card .usercard .usercard-info {
@@ -208,6 +216,15 @@ span.floor {
 
 	padding:10px 20px 10px 20px;
 	border-bottom: 1px solid #e2e2e2
+}
+
+p.mid {
+	text-align:center;
+}
+
+ul.errorlist {
+	margin:auto;
+	color:red;
 }
 
 

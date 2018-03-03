@@ -1,7 +1,8 @@
 {% extends "base.html"%}
 {% load timetonow %}
+
 {% block header %}
-<title> 物志 > {{request.user}} </title>
+<title> 物志 › {{request.user}} </title>
 <script type="text/javascript">
 $(function(){  
     $(".detail-tab").find(".profile-tab:first").show();   
@@ -117,8 +118,8 @@ $(function(){
         <p></p>
         {% for i in comments %}
         <div class="row member_comments">
-            <p style="background-color: #eee;padding:2px">于 {{i.comment_time|timetonow}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
-            <p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape}}</a></p>
+            <p style="background-color: #eee;padding:5px">于 {{i.comment_time|timetonow}} 评论了 <a href="/userpage/member/{{i.article.author_id}}/">{{i.article.author_id}} </a>的文章【 <a href="/article/{{i.article.id}}/">{{i.article}}</a> 】</p>
+            <p><a href="/article/{{i.article.id}}/#comment_{{i.id}}">{{i.comment|safe|escape|linebreaks}}</a></p>
         </div>
     
         {% endfor %}
@@ -130,8 +131,8 @@ $(function(){
         <p></p>
         {% for i in notice %}
         <div class="row member_comments" style="padding-left:20px">
-          <p style="background-color: #eee;padding:2px"><a href="/userpage/member/{{i.comment.user}}/">{{i.comment.user}}</a> 在 <a href="/article/{{i.comment.article.id}}/">{{i.comment.article}}</a> 的评论中提到了您 <span class="pull-right">{{i.comment_time|timetonow}}</span></p>
-            <p><a href="/article/{{i.comment.article.id}}/#comment_{{i.comment.id}}">{{i.comment|safe|escape}}</a></p>
+          <p style="background-color: #eee;padding:5px"><a href="/userpage/member/{{i.comment.user}}/">{{i.comment.user}}</a> 在 <a href="/article/{{i.comment.article.id}}/">{{i.comment.article}}</a> 的评论中提到了您  <span class="pull-right">{{i.comment_time|timetonow}}</span></p>
+          <p><a href="/article/{{i.comment.article.id}}/#comment_{{i.comment.id}}">{{i.comment|striptags|safe|linebreaks}}</a></p>
         </div>
         {% endfor %}
         </div>

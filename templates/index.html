@@ -24,11 +24,11 @@
             </div>
             <div class="preview-info">
                 <a href="/article/{{i.id}}/"><h2>{{i.title}}</h2></a>
-                <p class="fad">{{i.detail|striptags|truncatechars:500|safe}} </p>
+                <p class="fad">{{i.detail|striptags|truncatechars:500|safe|linebreaks}} </p>
                 <p></p>
                 <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.publish_time|timetonow}}</span>  
                 &nbsp;&nbsp;&nbsp;
-                <a href="/userpage/member/{{i.author_id}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">{{i.author}}</span></a>
+                <a href="/userpage/member/{{i.author_id}}/"><img src="/{{i.author_id.avatar}}" class="avatar-img">&nbsp;<span class="fad">{{i.author}}</span></a>
                 &nbsp;&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-th-list fad"> </span>&nbsp;<a href="/?catalog={{i.section}}"><span class="fad">{{i.section}}</span></a>
                 &nbsp;&nbsp;&nbsp;
@@ -36,7 +36,7 @@
                 &nbsp;&nbsp;&nbsp; 
                 <span class="glyphicon glyphicon-tag fad"> </span>&nbsp;<span class=" fad">{% if i.tag %}{{i.tag}}{% endif %}</span>
                 <span class="pull-right">
-                    <span><a href="/article/{{i.id}}/">阅读全文</a></span>
+                    <span><a href="/article/{{i.id}}/">阅读全文››</a></span>
                 </span>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load timetonow %}
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -70,30 +71,37 @@
                             {% ifnotequal user.id None %}
 						    <div class="usercard row">
 
-						        <a href="/userpage/member/{{user.user}}/"><div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
-						        </div></a>
+						        <a href="/userpage/member/{{user.user}}/">
+                                    <div class="usercard-avatar" style="background:url(/{{user.avatar}}) no-repeat;background-size:80px 80px;">
+						          </div>
+                                </a>
 						        <div class="usercard-info">
 						        	<p>
-						        		<a href="/userpage/member/{{user.user}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;<span class="fad">
-						        			{{user.user}}
-						        		</span> </a>
+						        		<a href="/userpage/member/{{user.user}}/"><span class="glyphicon glyphicon-user fad"> </span>&nbsp;
+                                            <span class="fad">
+						        			   {{user.user}}
+						        		    </span>
+
+                                         </a>
 						        	</p>	
 						        	<p>
 						        		<img src="/static/image/coin16.png" style="display:inline-block;padding-bottom: 4px" alt="金币" > <span class="fad">	
 						        			{{user.point}}
 						        		</span> &nbsp;&nbsp;&nbsp;
-                                        <img src="/static/image/notice.png" width="16" height="16" style="display:inline-block;padding-bottom: 2px;width:16px;height:20px" alt="未读提醒" > 
+                                        <a href="/userpage/member/{{user.user}}/"><img src="/static/image/notice.png" width="16" height="16" style="display:inline-block;padding-bottom: 2px;width:16px;height:20px" alt="未读提醒" > 
                                         <span class="fad" alt="未读提醒">
-                                           <a href="/userpage/member/{{user.user}}/">{{user.unread}}</a>
-						        		</span> &nbsp;&nbsp;&nbsp;
-						        	</p>			 
+                                           {{user.unread}}
+						        		</span></a> &nbsp;&nbsp;&nbsp;
+						        	</p>
+                                    <p><span class="glyphicon glyphicon-log-out fad"></span><a href="/userpage/logout/"> 注销</a></p>			 
 						        </div>
 						    </div>
+                            <span class="sep"></span>
 						    <button class="btn btn-default" style="width:100%;margin-top: 10px" type="submit" onclick="window.location.href='/article/publish/'">
 						    	<span class="glyphicon glyphicon-pencil"></span>&nbsp; 发布新文章
 						    </button>
                             {% else %}
-                            <button class="btn btn-info btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/login/'">
+                            <button class="btn btn-default btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/login/'">
                                 登录
                             </button>
                              <button class="btn btn-info btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/register/'">

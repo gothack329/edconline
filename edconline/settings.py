@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'reversion',
 
     'tinymce',
-
+    
     'article',
     'userpage',
     'notification',

@@ -65,18 +65,19 @@ function atuser(arg){
     
     {% for i in comments %}
     <div class="comment row {% ifequal i.invalid 'Y' %}invalid{% endifequal %}">
-        <div class="comment-avatar" style="background:url(/{{i.user.avatar}}) no-repeat;background-position:10px 20px;background-size:60px 60px;">
+        <div class="comment-avatar" > <!--style="background:url(/{{i.user.avatar}}) no-repeat;background-position:10px 20px;background-size:60px 60px;"-->
             <a href="/userpage/member/{{i.user}}/">{{i.user}}</a>
+            <img class="comment-avatar-img"  src="/{{i.user.avatar}}">
         </div>
         <div class="comment-info ">
 
               <span class="glyphicon glyphicon-time fad"> </span>&nbsp;<span class="fad">{{i.comment_time|timetonow}}</span> &nbsp;&nbsp; 
-            {% ifequal request.user.id  i.user.id %}
+            {% ifequal art.author_id.id  i.user.id %}
                 <span class="ico fad" style="padding:2px;border:1px solid gray">作者</span>
             {% endifequal %}
             <span class="pull-right ico fad floor" id="comment_{{i.id}}"># {{forloop.counter}}</span>
               <span class="pull-right ico ">
-                <a href="javascript:;" onclick="atuser('<a href=#comment_{{i.id}} >#{{forloop.counter}}</a> @<a class=mentioned_user href=/userpage/member/{{i.user}}>{{i.user}}</a>&nbsp;')"><img style="inline-block" src="/static/image/reply.png" align="absmiddle" border="0" alt="Reply"></a>
+                <a href="javascript:;" onclick="atuser('<a href=#comment_{{i.id}} > [#{{forloop.counter}}]</a> @<a class=mentioned_user href=/userpage/member/{{i.user}}>{{i.user}}</a>&nbsp;')"><img style="inline-block" src="/static/image/reply.png" align="absmiddle" border="0" alt="Reply"></a>
               </span>
 
             <p></p>

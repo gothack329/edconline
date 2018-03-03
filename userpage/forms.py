@@ -46,7 +46,7 @@ class RegisterForm(forms.Form):
         widget=widgets.PasswordInput(attrs={'class': "form-control",'placeholder': '请再次输入密码!'},render_value=True),
         required=True,
         strip=True,
-        error_messages={'required': '请再次输入密码!',}
+        error_messages={'required': '请再次输入密码!','invalid':'两次密码不匹配！'}
 
     )
 

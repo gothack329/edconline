@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load timetonow %}
+
+{% block header %}
+<title> 物志 › 注册 </title>
+{% endblock %}
+
+{% block banner %}
+    <div style="height:30px">
+        <p></p>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+        <form class="form-inline " method="post" action="" novalidate>{% csrf_token %}
+        	<a href="/">物志</a> › 注册
+        	<hr>
+
+            <p class="mid">
+                <label style="width:100px;text-align:right" for="username">用户名：</label>
+                    {{ form.username }}  
+            </p>
+            <p class="mid"><span style="color:red">{{ form.username.errors|striptags }}</span></p>
+
+            <p class="mid">
+                <label style="width:100px;text-align:right" for="email">邮箱：</label>
+                    {{ form.email }}
+            </p>
+            <p class="mid"><span style="color:red">{{ form.email.errors|striptags }}</span></p>
+
+            <p class="mid">
+                <label style="width:100px;text-align:right" for="password">密码：</label>
+                    {{ form.pwd }}
+            </p>
+            {% for i in form.pwd.errors %}
+            <p class="mid">
+                <span style="color:red">{{i}}</span>
+            </p>
+            {% endfor %}
+
+            <p class="mid">
+                <label style="width:100px;text-align:right" for="confirm_password">确认密码：</label>
+                    {{ form.pwd_again }}
+            </p>
+            <p><span style="color: red">{{ form.pwd_again.errors|striptags }}</span></p>
+
+            <p class="mid">
+                <label style="width:100px;text-align:right"></label>
+                <img style="display:inline-block;" id="check_code_img" src="/utils/check_code/" onclick="refresh_check_code(this)"></p>
+            <p class="mid">
+                <label style="width:100px;text-align:right" for="check_code">验证码：</label>
+                <input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">
+            </p>
+
+             <p class="mid">
+                <button class="btn btn-primary" type="submit" >注册</button>
+            </p>
+
+            </form>
+    </div>
+
+
+    {% if errors %}
+            {% for error in errors %}
+                <script type="text/javascript">
+                $.notify({
+                    message: '{{ error|escape }}',
+                },{
+                    type: 'warning',
+                    delay: 5000,
+                    timer: 1000,
+                    animate: {
+                        enter: 'animated flipInY',
+                        exit: 'animated flipOutX'
+                    },
+                },);
+               </script>
+            {% endfor %}
+    {% endif %}  
+
+
+{% endblock %}
