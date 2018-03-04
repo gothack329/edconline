@@ -3,7 +3,7 @@ from article.models import *
 
 # Register your models here.
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id','section','title','author','author_id','publish_time','readtime','visible')
+    list_display = ('id','section','title','author_id','publish_time','readtime','visible')
     #search_fields = ('section__name',)
 admin.site.register(Article,ArticleAdmin)
 

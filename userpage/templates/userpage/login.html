@@ -39,6 +39,7 @@
                  一个月内自动登陆
                 <span class="pull-right"><a href="#">忘记密码？</a></span>
             </p>
+            <input type="hidden" value='{{referer}}' name="referer">
             <p style="text-align:center">
             	<button class="btn btn-primary" type="submit" >登录</button>
             </p>
@@ -52,7 +53,7 @@
                 $.notify({
                     message: '{{ error|escape }}',
                 },{
-                    type: 'warning',
+                    type: 'danger',
                     delay: 5000,
                     timer: 1000,
                     animate: {

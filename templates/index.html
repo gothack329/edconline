@@ -16,6 +16,12 @@
 
 {% block content %}
 
+    {% if keywords %}
+    <div class="card">
+        <a href="/">物志</a> › {{keywords}}
+
+    </div>
+    {% endif %}
     {% for i in arts %}
     <div class="card">
         <div class="preview row">

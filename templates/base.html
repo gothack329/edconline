@@ -107,8 +107,23 @@
                              <button class="btn btn-info btn-sidebar" style="width:70%;margin-top: 10px" type="submit" onclick="window.location.href='/userpage/register/'">
                                 注册
                             </button>
-
                             {% endifnotequal %}
+
+                            <form action="/" method="get" id="searchform" name="searchform">
+                            <div class="input-group" style="margin-top:20px">
+                              
+                                <input type="text" class="form-control input-lg" style="height:35px" placeholder="搜索文章..." name="keywords">
+                                <span class="input-group-addon btn btn-primary" id="search">
+                                    <span class="glyphicon glyphicon-search" > </span>
+                                </span>
+                                
+                            </div>
+                            </form>
+                            <script type="text/javascript">
+                                $("#search").click(function() {//button的click事件  
+                                        $("#searchform").submit(); 
+                                         });
+                            </script>
 						</div>
 
                         <div class="card">

@@ -27,8 +27,6 @@ class Article(models.Model):
     id=models.AutoField(primary_key=True)
     section=models.ForeignKey(Section,on_delete=models.CASCADE,default=0)
     author_id = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0)
-    author = models.CharField(max_length=128,default='')
-    #author_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     publish_time = models.DateTimeField(auto_now_add=True,editable=False)
     cover = models.ImageField(upload_to='static/upload/', blank=True, null=True)
     title = models.CharField(max_length=1024)
@@ -55,20 +53,17 @@ class Article(models.Model):
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title','author','author_id','section','tag','cover','detail']
+        fields = ['title','author_id','section','tag','cover','detail']
         error_messages = {
             'section':{'required': '请选择主题分区'},
-            'author':{'required': '请输入作者名称'},
             'cover':{'required': '请上传封面图'},
             'detail':{'required': '请输入正文内容'},
             'title':{'required': '请输入文章标题'},
-
             }
         widgets = {
            'detail':TinyMCE(attrs={'cols':'100%','rows':30}),
            'cover':FileInput(attrs={'style':'width:50%','class':'form-control','placeholder':"封面"}),
            'tag':TextInput(attrs={'class':'form-control','placeholder':"添加标签,回车确认",'data-role':'tagsinput'}),
-           'author':TextInput(attrs={'class':'form-control','placeholder':"署名"}),
            'title':TextInput(attrs={'style':'width:50%','class':'form-control','placeholder':"标题"}),
            'section':widgets.Select(choices=Section.objects.values_list('id','name'),attrs={'class':'form-control','placeholder':"标题"}), 
             }
@@ -97,6 +92,9 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment 
         fields = ('article','user','comment','ip','invalid')
+        error_messages = {
+            'user':{'required': '请先登录','invalid_choice':'请先登录!'},
+            }
         widgets = {
                 'comment':TinyMCE(attrs={'cols':'100%','rows':10}),
                 }

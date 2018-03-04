@@ -52,7 +52,7 @@
                 <label style="width:100px;text-align:right" for="check_code">验证码：</label>
                 <input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">
             </p>
-
+            <input type="hidden" name="referer" value="{{referer}}">
              <p class="mid">
                 <button class="btn btn-primary" type="submit" >注册</button>
             </p>
@@ -67,7 +67,7 @@
                 $.notify({
                     message: '{{ error|escape }}',
                 },{
-                    type: 'warning',
+                    type: 'danger',
                     delay: 5000,
                     timer: 1000,
                     animate: {

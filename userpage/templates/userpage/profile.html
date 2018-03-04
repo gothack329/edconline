@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load timetonow %}
+{% load displayName %}
 
 {% block header %}
 <title> 物志 › {{request.user}} </title>
@@ -23,7 +24,7 @@ $(function(){
                     message: '{{ error|escape }}',
                 },{
                     // settings
-                    type: 'warning',
+                    type: 'danger',
                     delay: 5000,
                     timer: 1000,
                     animate: {
@@ -85,7 +86,10 @@ $(function(){
             <a href="javascript:;">消息提醒 &nbsp; {% ifnotequal unread 0 %}<span class="badge" style="background-color:#d73a49">{{unread}}</span>{% endifnotequal %}</a>
           </li>
           <li role="presentation" >
-              <a href="javascript:;">编辑资料</a>
+              <a href="javascript:;">金币明细</a>
+          </li>
+          <li role="presentation" >
+              <a href="javascript:;">修改资料</a>
           </li>
           {% endifequal %}
         </ul>
@@ -137,7 +141,16 @@ $(function(){
         {% endfor %}
         </div>
 
-    
+        <div class="profile-tab" >
+        <p></p>
+        {% for i in points %}
+        <div class="row member_comments">
+            <p>{{i.record_time|timetonow}},{{i.event}},{{i.point_record}}</p>
+        </div>
+        {% endfor %}
+        </div>
+
+
         <div class="profile-tab" >
         {# 编辑资料 #}
             <p></p>

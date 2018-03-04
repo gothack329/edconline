@@ -44,7 +44,7 @@ tinyMCE.init(
                 message: '{{ error|escape }}',
             },{
                 // settings
-                type: 'warning',
+                type: 'danger',
                 delay: 5000,
                 timer: 1000,
                 animate: {
@@ -60,7 +60,7 @@ tinyMCE.init(
     <form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <input type="hidden" name="author_id" value="{{request.user.id}}">
-        <p>{{article_form.section}} - {{article_form.title}} - {{article_form.author}}</p> 
+        <p>{{article_form.section}} - {{article_form.title}}</p> 
 	    <p>上传封面图片 : {{article_form.cover}}</p>
         <span class="sep margintop"></span>
         <p>正文</p>

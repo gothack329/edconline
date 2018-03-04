@@ -7,4 +7,6 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile,ProfileAdmin)
 
 
-
+class PointAdmin(admin.ModelAdmin):
+    list_display = ('user','point_record','record_time','event')
+admin.site.register(Point,PointAdmin)

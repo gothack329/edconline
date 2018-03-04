@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext,Template,Context,loader,defaultfilters
 from django.contrib import messages
 from .models import *
+from userpage.models import *
 
 
 # Create your views here.
@@ -23,8 +24,15 @@ def detail(request, article_id):
         if comment_form.is_valid():
             instance = comment_form.save(commit=False)
             instance.ip = request.META['REMOTE_ADDR']
-
             instance.save()
+
+            point=1
+            author = User.objects.get(pk=art.author_id.id)
+            commenter = User.objects.get(pk=request.user.id)
+            updatepoint = Point.objects.create(user=author,point_record=point,event="commented")
+            updatepoint = Point.objects.create(user=commenter,point_record=-point,event="comment")
+
+
             return redirect('.')
         else:
             messages.error(request, comment_form.errors)
@@ -47,11 +55,18 @@ def publish(request):
             instance.ip = request.META['REMOTE_ADDR']
             art = instance.save()
   
+            point=2
+            u = User.objects.get(pk=instance.author_id.id)
+            updatepoint = Point.objects.create(user=u,point_record=point,event="publish")
+            #updatepoint.save()
+
             return redirect('/article/%d/' % (instance.pk,))
         else:
             messages.error(request, article_form.errors)
     else:
         article_form = ArticleForm(instance=None)
+
+
 
     return render(request,'article/publish.html',{'article_form':article_form,'operation':'发布'})
 
