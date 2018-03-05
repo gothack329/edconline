@@ -17,18 +17,24 @@ def detail(request, article_id):
 
     art = Article.objects.get(pk=article_id)
     comments = Comment.objects.filter(article_id=article_id).order_by('comment_time')
+    errors = []
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST,instance=None)
+        commenter = User.objects.get(pk=request.user.id)
+
         
-        if comment_form.is_valid():
+        user_p = Profile.objects.get(user=commenter)
+        if user_p.point < 1:
+            errors.append('您没有足够的积分进行评论！')
+        elif comment_form.is_valid():
             instance = comment_form.save(commit=False)
             instance.ip = request.META['REMOTE_ADDR']
             instance.save()
 
             point=1
             author = User.objects.get(pk=art.author_id.id)
-            commenter = User.objects.get(pk=request.user.id)
+            
             updatepoint = Point.objects.create(user=author,point_record=point,event="commented")
             updatepoint = Point.objects.create(user=commenter,point_record=-point,event="comment")
 
@@ -42,7 +48,7 @@ def detail(request, article_id):
         comment_form = CommentForm(instance=None)
 
 
-    return render(request,'article/detail.html',{'art':art,'comments':comments,'comment_form':comment_form})
+    return render(request,'article/detail.html',{'art':art,'comments':comments,'comment_form':comment_form,'errors':errors})
     #return HttpResponse("You're looking at article %s." % article_id)
 
 

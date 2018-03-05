@@ -118,6 +118,25 @@ function atuser(arg){
     {% endfor %}
 {% endif %}  
 
+{% if errors %}
+        {% for error in errors %}
+            <script type="text/javascript">
+            $.notify({
+                // options
+                message: '{{ error|escape }}',
+            },{
+                // settings
+                type: 'danger',
+                delay: 5000,
+                timer: 1000,
+                animate: {
+                    enter: 'animated flipInY',
+                    exit: 'animated flipOutX'
+                },
+            },);
+           </script>
+        {% endfor %}
+{% endif %}  
     <form class="textarea" method="post" novalidate>
         {% csrf_token %}
         <input type='hidden' name="article" value="{{art.id}}" />

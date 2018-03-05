@@ -145,7 +145,7 @@ $(function(){
         <p></p>
         {% for i in points %}
         <div class="row member_comments">
-            <p>{{i.record_time|timetonow}},{{i.event}},{{i.point_record}}</p>
+            <p>{{i.record_time|timetonow}},{{i.get_event_display}},{{i.point_record}}</p>
         </div>
         {% endfor %}
         </div>
