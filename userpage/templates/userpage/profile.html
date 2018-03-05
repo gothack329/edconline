@@ -3,7 +3,7 @@
 {% load displayName %}
 
 {% block header %}
-<title> 物志 › {{request.user}} </title>
+<title> {% ifnotequal user.unread 0%} ({{user.unread}}) {% endifnotequal %} 物志 › {{request.user}} </title>
 <script type="text/javascript">
 $(function(){  
     $(".detail-tab").find(".profile-tab:first").show();   

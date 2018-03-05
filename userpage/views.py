@@ -67,7 +67,7 @@ def profile(request, username):
 def userlogin(request):
 
     if request.method == 'POST':
-        # print(request.POST)
+        print(request.POST['referer'])
         username = request.POST['username']
         password = request.POST['password']
         errors = []

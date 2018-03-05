@@ -34,9 +34,9 @@ img.avatar-img {
 .banner {
 	top:0;
 	width:100%;
-	height:400px;
+	height:500px;
 	min-height:50px;
-	box-shadow: 0 0 12px 0 #25292e inset;
+	box-shadow: 0 0 20px 0 #f6f8fa inset;
 }
 
 .banner h1 {

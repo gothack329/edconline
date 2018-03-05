@@ -18,7 +18,7 @@
         <script type="text/javascript" src="/static/bootstrap/js/bootstrap-notify.js"></script>
         <link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
         {% block header %}        
-        <title>{% if title %}{{title}} - {% endif %}物志</title>
+        <title>{% ifnotequal user.unread 0%} ({{user.unread}}) {% endifnotequal %} 物志  {% if title %}› {{title}} {% endif %} </title>
         {% endblock %}        
     </head>
     <body>

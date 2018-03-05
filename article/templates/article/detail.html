@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load timetonow %}
 {% block header %}
-<title>{{art.title}} - 物志</title>
+<title>{% ifnotequal user.unread 0%} ({{user.unread}}) {% endifnotequal %} 物志 › {{art.title}} </title>
 
 <script type="text/javascript" src="/static/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
@@ -42,7 +42,7 @@ function atuser(arg){
 
 {% block content %}
 <div class="card margintop article-content">
-    <span class="fad">作者：<a href="/userpage/member/{{art.author_id}}/"><img src="/{{art.author_id.avatar}}" class="avatar-img">&nbsp;{{art.author}}</a> </span>
+    <span class="fad">作者：<a href="/userpage/member/{{art.author_id}}/"><img src="/{{art.author_id.avatar}}" class="avatar-img">&nbsp;{{art.author_id}}</a> </span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">阅读数：{{art.readtime}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
