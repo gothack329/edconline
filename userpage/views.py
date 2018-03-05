@@ -28,14 +28,14 @@ def profile(request, username):
         # update profile 
         if request.method == 'POST':
             user_form = UserForm(request.POST, instance=request.user)
-            profile_form = ProfileForm(request.POST, instance=request.user.profile)
+            profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
                 #messages.success(request, '用户资料更新成功!')
                 return redirect('.')
-                #return redirect('settings:profile')
+
             else:
                 messages.error(request, user_form.errors)
                 #messages.error(request, _('Please correct the error below.'))
@@ -129,8 +129,7 @@ def register(request):
                 updatepoint = Point.objects.create(user=u,point_record=point,event="register")
 
                 user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
+                login(request, user)
 
                 return redirect(request.POST['referer'])
         else:
@@ -147,18 +146,5 @@ def register(request):
             refer = '/'
         obj = forms.RegisterForm()
     return render(request,'userpage/register.html',{'form':obj,'referer':refer})
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

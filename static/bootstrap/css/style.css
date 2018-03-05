@@ -80,6 +80,10 @@ div.container-fluid {
     box-sizing: border-box;
 }
 
+.container {
+	width:80%;
+}
+
 .sidebar , .content {
 	margin-top:10px;
 }
