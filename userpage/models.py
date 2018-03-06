@@ -22,6 +22,7 @@ class Profile(models.Model):
     instagram = models.CharField(max_length=128, blank=True)
     facebook = models.CharField(max_length=128, blank=True)
     twitter = models.CharField(max_length=128, blank=True)
+    telegram = models.CharField(max_length=128, blank=True)
     
 
     def __str__(self):
@@ -48,6 +49,13 @@ class ProfileForm(ModelForm):
             }
         widgets = {
            'avatar':ClearableFileInput(attrs={'class':'form-control','placeholder':"头像"}),
+           'mobile':TextInput(attrs={'class':'form-control'}),
+           'weibo':TextInput(attrs={'class':'form-control'}),
+           'wechat':TextInput(attrs={'class':'form-control'}),
+           'facebook':TextInput(attrs={'class':'form-control'}),
+           'twitter':TextInput(attrs={'class':'form-control'}),
+           'instagram':TextInput(attrs={'class':'form-control'}),
+           'telegram':TextInput(attrs={'class':'form-control'}),
             }
 
 

@@ -16,12 +16,15 @@ def timetonow(value):
 
     s = delta.total_seconds()
     if s>86400:
-    	return '%d天前' % (int(s/86400))
+        if int(s%86400/3600) == 0:
+            return  '%d天前' % (int(s/86400))
+        else:
+           return '%d天%d小时前' % (int(s/86400),s%86400/3600)
     elif s>3600:
-    	return '%d小时前' % (int(s/3600))
+        return '%d小时前' % (int(s/3600))
     elif s>120:
-    	return '%d分钟前' % (int(s/60))
+        return '%d分钟前' % (int(s/60))
     else:
-    	return '刚刚' 
+        return '刚刚' 
 
 timetonow.is_safe = True

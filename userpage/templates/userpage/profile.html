@@ -142,14 +142,34 @@ $(function(){
         </div>
 
         <div class="profile-tab" >
-        <p></p>
-        {% for i in points %}
-        <div class="row member_comments">
-            <p>{{i.record_time|timetonow}},{{i.get_event_display}},{{i.point_record}}</p>
+            <table class="table">
+              <thead>
+                <th>时间</th>
+                <th>记录</th>
+                <th>积分</th>
+              </thead>
+            {% for i in points %}
+            <tr>
+              <td>{{i.record_time}}</td>
+              <td>{{i.get_event_display}}</td>
+              <td class="pointrecord">{{i.point_record}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+            <script type="text/javascript">
+                $(function(){
+                  $('.pointrecord').each(function(){
+                     if($(this).text()>0){
+                         const value = $(this).text();
+                         $(this).text('+'+value);
+                         $(this).css('color','#47830d');
+                     } else {
+                         $(this).css('color','#d73a49');
+                     }
+                  })
+                })
+            </script>
         </div>
-        {% endfor %}
-        </div>
-
 
         <div class="profile-tab" >
         {# 编辑资料 #}
@@ -163,6 +183,15 @@ $(function(){
               <p style="text-align:center"><label style="width:100px;text-align:right" for="first_name">名：</label>{{ user_form.first_name}}</p>
               <p style="text-align:center"><label style="width:100px;text-align:right" for="last_name">姓：</label>{{ user_form.last_name}}</p>
               <p style="text-align:center"><label style="width:100px;text-align:right" for="email">邮箱：</label>{{ user_form.email}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="mobile">手机：</label>{{ profile_form.mobile}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="wechat">微信：</label>{{ profile_form.wechat}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="weibo">微博：</label>{{ profile_form.weibo}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="facebook">Facebook：</label>{{ profile_form.facebook}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="twitter">Twitter：</label>{{ profile_form.twitter}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="instagram">Instagram：</label>{{ profile_form.instagram}}</p>
+              <p style="text-align:center"><label style="width:100px;text-align:right" for="telegram">Telegram：</label>{{ profile_form.telegram}}</p>
+
+              <p style="text-align:center"><a href="/userpage/change_password/">修改密码</a></p>
 
               <button type="submit" class="btn btn-default pull-right">保存资料</button>
             </form>
