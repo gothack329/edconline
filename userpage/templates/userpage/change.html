@@ -18,12 +18,35 @@
         <form class="form-inline " method="post" action="" novalidate>{% csrf_token %}
         	<a href="/">物志</a> › 修改密码
         	<hr>
-{{form.as_p}}
+{{change_form.as_p}}
             <p style="text-align:center">
             	<button class="btn btn-primary" type="submit" >确认修改</button>
             </p>
         </form>
     </div>
+
+    {% if change_form.errors %}
+        {% for field in change_form %}
+        {{field}}
+            {% for error in field.errors %}
+                <script type="text/javascript">
+                $.notify({
+                    // options
+                    message: '{{ error|escape }}',
+                },{
+                    // settings
+                    type: 'danger',
+                    delay: 5000,
+                    timer: 1000,
+                    animate: {
+                        enter: 'animated flipInY',
+                        exit: 'animated flipOutX'
+                    },
+                },);
+               </script>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}  
 
 
 

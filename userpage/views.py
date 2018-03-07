@@ -156,13 +156,14 @@ def password_change(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            print(dir(form))
             messages.success(request,'密码修改成功!')
         else:
-            messages.error(request,form.errors)
-            print(dir(messages))
+            #print(form.errors.as_data())
+            messages.error(request,form.errors.as_json())
+            #print(dir(messages))
+            pass
         return redirect('.')
     else:
         form = PasswordChangeForm(user=request.user)
-        return render(request,'userpage/change.html',{'form':form})
+        return render(request,'userpage/change.html',{'change_form':form})
     
