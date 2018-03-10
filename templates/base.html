@@ -5,7 +5,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-           <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="/static/image/favicon.ico" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="EDC online">
         <meta name="author" content="物志">
@@ -17,8 +18,14 @@
         <script type="text/javascript" src="/static/bootstrap/js/bootstrap-notify.min.js"></script>
         <script type="text/javascript" src="/static/bootstrap/js/bootstrap-notify.js"></script>
         <link href='http://cdn.webfont.youziku.com/webfonts/nomal/114602/46453/5a919786f629d911e0099415.css' rel='stylesheet' type='text/css' />
+        <title>
+            {% if user.id %} 
+            {% ifnotequal user.unread 0 %} ({{user.unread}}) {% endifnotequal %} 
+            {% endif %}
+            物志 {%block title%} {% endblock %}
+        </title>
         {% block header %}        
-        <title>{% ifnotequal user.unread 0%} ({{user.unread}}) {% endifnotequal %} 物志  {% if title %}› {{title}} {% endif %} </title>
+
         {% endblock %}        
     </head>
     <body>

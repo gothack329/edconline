@@ -59,7 +59,7 @@ tinyMCE.init(
 
     <form method="post" class="form-inline textarea" data-ajax="false" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        <input type="hidden" name="author_id" value="{{request.user.id}}">
+        <input type="hidden" name="author_id" value="{{user.id}}">
         <p>{{article_form.section}} - {{article_form.title}}</p> 
 	    <p>上传封面图片 : {{article_form.cover}}</p>
         <span class="sep margintop"></span>

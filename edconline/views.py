@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.db.models import Q
 from django.template import Template,defaultfilters,RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from article.models import *
 import os,random
@@ -17,6 +18,7 @@ def homepage(request):
     for i in query:
         data[i[0]]=i[1] 
 
+    print(data)
     #if request.user.is_authenticated :# and request.user.has_perm('cmdb.permit')):
     #    username = request.user.username
     #else:
@@ -38,7 +40,11 @@ def homepage(request):
         arts = Article.objects.filter(visible='Y').order_by('-publish_time')
         search_keywords = None
 
-    return render(request,'index.html',{'cover':cover,'arts':arts,'keywords':search_keywords}) 
+    paginator = Paginator(arts,15)
+    page = request.GET.get('page')
+    articles = paginator.get_page(page)
+
+    return render(request,'index.html',{'cover':cover,'arts':articles,'keywords':search_keywords}) 
 
 
 

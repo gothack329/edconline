@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load timetonow %}
 
-{% block header %}
-<title> 物志 › 登录 </title>
+{% block title %}
+ › 登录 
 {% endblock %}
 
 {% block banner %}
@@ -28,7 +28,8 @@
 
             <p style="text-align:center">
             	<label style="width:100px;text-align:right"></label>
-            	<img style="display:inline-block;" id="check_code_img" src="/utils/check_code/" onclick="refresh_check_code(this)"></p>
+            	<img style="display:inline-block;" id="check_code_img" src="/utils/check_code/" onclick="refresh_check_code(this)">
+            </p>
             <p style="text-align:center">
             	<label style="width:100px;text-align:right" for="check_code">验证码：</label>
             	<input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">

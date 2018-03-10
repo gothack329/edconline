@@ -20,8 +20,11 @@ class Msg(models.Model):
 @receiver(post_save, sender=Comment)
 def mentioned_user(sender, created, instance, **kwargs):
     s = bs(str(instance) , "html.parser")
+    
     mu = [i.text for i in s.find_all('a',attrs={'class':'mentioned_user'})]
+    mu.append(instance.article.author_id.user.username)
     mu = list(set(mu))
+    print(mu)
     if len(mu) > 0 and created:
         msg = Msg.objects.create(comment=instance,unread='Y',comment_time=instance.comment_time)
         for user in mu:

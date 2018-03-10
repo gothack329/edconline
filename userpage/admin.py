@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user','address','avatar','invite_code','mobile','wechat','weibo','facebook','twitter','instagram')
+    list_display = ('user','address','avatar','point','invite_code','mobile','wechat','weibo','facebook','twitter','instagram')
 admin.site.register(Profile,ProfileAdmin)
 
 

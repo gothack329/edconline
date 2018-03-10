@@ -19,10 +19,15 @@ def detail(request, article_id):
     comments = Comment.objects.filter(article_id=article_id).order_by('comment_time')
     errors = []
 
-    if request.method == 'POST':
+
+    if request.method == 'GET':
+        art.readtime = art.readtime + 1
+        art.save(update_fields=['readtime'])
+        comment_form = CommentForm(instance=None)
+    elif request.method == 'POST' and request.user.is_authenticated:
+        #Profile.objects.get()
         comment_form = CommentForm(request.POST,instance=None)
         commenter = User.objects.get(pk=request.user.id)
-
         
         user_p = Profile.objects.get(user=commenter)
         if user_p.point < 1:
@@ -33,7 +38,7 @@ def detail(request, article_id):
             instance.save()
 
             point=1
-            author = User.objects.get(pk=art.author_id.id)
+            author = User.objects.get(username=art.author_id.user.username)
             
             updatepoint = Point.objects.create(user=author,point_record=point,event="commented")
             updatepoint = Point.objects.create(user=commenter,point_record=-point,event="comment")
@@ -42,10 +47,11 @@ def detail(request, article_id):
             return redirect('.')
         else:
             messages.error(request, comment_form.errors)
+
     else:
-        art.readtime = art.readtime + 1
-        art.save(update_fields=['readtime'])
         comment_form = CommentForm(instance=None)
+        errors.append('请先登录!')
+
 
 
     return render(request,'article/detail.html',{'art':art,'comments':comments,'comment_form':comment_form,'errors':errors})
@@ -62,7 +68,7 @@ def publish(request):
             art = instance.save()
   
             point=2
-            u = User.objects.get(pk=instance.author_id.id)
+            u = User.objects.get(pk=request.user.id)
             updatepoint = Point.objects.create(user=u,point_record=point,event="publish")
             #updatepoint.save()
 

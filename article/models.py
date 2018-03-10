@@ -33,7 +33,7 @@ class Article(models.Model):
     detail = HTMLField()
     ip = models.GenericIPAddressField(blank=True,null=True)
     tag = models.CharField(max_length=128, blank=True, null=True)
-    visible = models.CharField(choices=(('Y','是'),('N','否')),max_length=64,default='N')
+    visible = models.CharField(choices=(('Y','是'),('N','否')),max_length=64,default='Y')
     readtime = models.IntegerField(default=0)
     comment_count = models.IntegerField(default=0)
     #update_time = models.DateTimeField(auto_now=True,blank=True,null=True)
@@ -93,7 +93,7 @@ class CommentForm(ModelForm):
         model = Comment 
         fields = ('article','user','comment','ip','invalid')
         error_messages = {
-            'user':{'required': '请先登录','invalid_choice':'请先登录!'},
+            'user':{'required': '请先登录!','invalid_choice':'用户名不正确!'},
             }
         widgets = {
                 'comment':TinyMCE(attrs={'cols':'100%','rows':10}),

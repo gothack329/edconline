@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% load timetonow %}
-{% block header %}
-<title>{% ifnotequal user.unread 0%} ({{user.unread}}) {% endifnotequal %} 物志 › {{art.title}} </title>
 
+{% block title %}
+ - {{art.title}} 
+{% endblock %}
+
+{% block header %}
 <script type="text/javascript" src="/static/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 tinyMCE.init(
 {
-
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'modern',
@@ -17,7 +19,6 @@ tinyMCE.init(
     'menubar': false,
     'statusbar': false,
     }
-
 );
 </script>
 <script type="text/javascript">
@@ -49,7 +50,7 @@ function atuser(arg){
     <span class="fad">评论数：{{comments|length}}</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
-    {% ifequal request.user.id  art.author_id.id %}
+    {% ifequal request.user.id  art.author_id.user.id %}
     <span class="fad pull-right" ><button  class="btn btn-primary" onclick="window.location.href='/article/update/{{art.id}}/'">编辑</button></span>
     {% endifequal %}
     <p></p>
@@ -140,7 +141,7 @@ function atuser(arg){
     <form class="textarea" method="post" novalidate>
         {% csrf_token %}
         <input type='hidden' name="article" value="{{art.id}}" />
-        <input type='hidden' name="user" value="{{request.user.id}}" />
+        <input type='hidden' name="user" value="{{user.id}}" />
         <input type='hidden' name="invalid" value="N" />
         {{comment_form.comment}}
         <p></p>

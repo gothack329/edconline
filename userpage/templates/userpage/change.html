@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% load timetonow %}
 
-{% block header %}
-<title> 物志 › {{request.user}} </title>
-
-
+{% block title %}
+› {{request.user}}
 {% endblock %}
 
 {% block banner %}
@@ -19,6 +17,7 @@
         	<a href="/">物志</a> › 修改密码
         	<hr>
 {{change_form.as_p}}
+ <p> <a href="/userpage/member/{{request.user}}/">返回</a></p>
             <p style="text-align:center">
             	<button class="btn btn-primary" type="submit" >确认修改</button>
             </p>

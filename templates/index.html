@@ -50,5 +50,33 @@
     </div>
     {% endfor %}
 
+
+<ul class="pager" style="margin-left:20px">
+    {% if arts.has_previous %}
+    <li class="previous"><a href="?page={{ arts.previous_page_number }}">&larr; 更新文章</a></li>
+    {% endif %}
+    {% if arts.has_next %}
+    <li class="next"><a href="?page={{ arts.paginator.num_pages }}">更早文章 &rarr;</a></li>
+    {% endif %}
+</ul>
+
+
 {% endblock %}
 
+    <div class="pagination">
+    <span class="step-links">
+        {% if arts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ arts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ arts.number }} of {{ arts.paginator.num_pages }}.
+        </span>
+
+        {% if arts.has_next %}
+            <a href="?page={{ arts.next_page_number }}">next</a>
+            <a href="?page={{ arts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

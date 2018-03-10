@@ -57,7 +57,9 @@ def profile(request, username):
         # end notification
 
         # point record
+        print(inst_user)
         point = Point.objects.filter(user=inst_user).order_by('-record_time')
+        print(point)
 
 
         return render(request, 'userpage/profile.html', {'member':inst_user,'arts':arts,'comments':comments,'user_form': user_form,'profile_form': profile_form,'notice':msgs,'points':point,'unread':unread})
@@ -106,8 +108,14 @@ def userlogout(request):
 
 def register(request):
     errors = []
-
-        # return render(request,'register.html',{'form':obj})
+    if 'HTTP_REFERER' in request.environ:
+        refer = request.environ['HTTP_REFERER']
+        if '/userpage/register/' not in refer:
+            pass
+        else:
+            refer = '/'
+    else:
+        refer = '/'
     if request.method == 'POST':
         # print(request.POST)
         obj = forms.RegisterForm(request.POST)
@@ -128,6 +136,17 @@ def register(request):
                 u.save()
 
                 point=10
+
+                invite = request.GET.get('invite_code')
+                if invite:
+                    u_p = Profile.objects.get(invite_code=invite)
+                    p = 5
+                    Point.objects.create(user=u_p.user,point_record=p,event="invite")
+                else:
+                    p = 0
+
+
+                point = point + p
                 updatepoint = Point.objects.create(user=u,point_record=point,event="register")
 
                 user = authenticate(request, username=username, password=password)
@@ -138,14 +157,6 @@ def register(request):
             errors = obj.errors
             print(errors)
     else:
-        if 'HTTP_REFERER' in request.environ:
-            refer = request.environ['HTTP_REFERER']
-            if '/userpage/register/' not in refer:
-                pass
-            else:
-                refer = '/'
-        else:
-            refer = '/'
         obj = forms.RegisterForm()
     return render(request,'userpage/register.html',{'form':obj,'referer':refer})
 

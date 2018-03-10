@@ -43,7 +43,7 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ('avatar',)
+        fields = ('avatar','mobile','weibo','wechat','facebook','twitter','instagram','telegram')
         error_messages = {
             'avatar':{'required': '请上传头像'},
             }
@@ -64,7 +64,7 @@ class Point(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     point_record = models.IntegerField()
     record_time = models.DateTimeField(auto_now_add=True,editable=False)
-    event = models.CharField(choices=(('publish','发布文章'),('comment','发表评论'),('commented','文章被评论'),('register','新用户注册')),max_length=16)
+    event = models.CharField(choices=(('invite','邀请新用户'),('publish','发布文章'),('comment','发表评论'),('commented','文章被评论'),('register','新用户注册')),max_length=16)
 
     def __str__(self):
         return '%s %s %d' % (self.user,self.event,self.point_record)
@@ -72,6 +72,7 @@ class Point(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    print(instance)
     if created:
         Profile.objects.create(user=instance)
 
@@ -85,3 +86,4 @@ def update_user_point(sender, instance, created, **kwargs):
         user = Profile.objects.get(user=instance.user)
         user.point += instance.point_record
         user.save()
+
