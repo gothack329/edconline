@@ -28,7 +28,7 @@ class Article(models.Model):
     section=models.ForeignKey(Section,on_delete=models.CASCADE,default=0)
     author_id = models.ForeignKey(Profile,on_delete=models.CASCADE,default=0)
     publish_time = models.DateTimeField(auto_now_add=True,editable=False)
-    cover = models.ImageField(upload_to='static/upload/', blank=True, null=True)
+    cover = models.ImageField(upload_to='static/upload/')
     title = models.CharField(max_length=1024)
     detail = HTMLField()
     ip = models.GenericIPAddressField(blank=True,null=True)

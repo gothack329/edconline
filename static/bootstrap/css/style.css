@@ -165,6 +165,7 @@ span.floor {
 }
 
 .ad1 {
+	display:none;
 	height:100px;
 	background-color:silver;
 	text-align:center;
@@ -174,6 +175,7 @@ span.floor {
 }
 
 .ad2 {
+	display:none;
 	height:250px;
 	background-color:silver;
 	text-align:center;
@@ -246,7 +248,9 @@ footer, footer a{
 }
 
 .foot-wrap .foot-top  {
-	padding:20px;
+	padding-top:20px;
+
+	height:60px;
 }
 
 .foot-wrap .foot-bottom  {
@@ -254,6 +258,14 @@ footer, footer a{
 	border-top:1px solid rgba(255,255,255,.2);
 }
 
+.foot-wrap .foot-top ul {
+	list-style: none;
+	float:left;
+	padding-left:20px;
+	width:100%;
+}
 
-
-
+.foot-wrap .foot-top ul li {
+	float:left;
+	padding-right:20px;
+}

@@ -33,7 +33,7 @@ function atuser(arg){
 
 
 {% block banner %}
-<div class="banner" style="background:url(/{{art.cover}}) no-repeat;background-position:center;background-size:cover;">
+<div class="banner" style="background:silver url(/{{art.cover}}) no-repeat;background-position:center;background-size:cover;">
     <div class="container">
             <h1>{% if art %}{{art.title}}{% endif %} </h1>
     </div>
@@ -57,7 +57,7 @@ function atuser(arg){
     <span class="fad">发表于：{{art.publish_time|timetonow}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="fad">标签：{% if arg.tag %}{{art.tag}}{% endif %}</span>
     <span class="sep margintop" ></span>
-    <div class="ad1"> <h3>广告位</h3> </div>
+    <div class="ad1">  </div>
     {{art.detail|safe }}
 </div>
 
