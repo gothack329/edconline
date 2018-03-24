@@ -4,6 +4,8 @@ from django.template import RequestContext,Template,Context,loader,defaultfilter
 from django.contrib import messages
 from .models import *
 from userpage.models import *
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 
 # Create your views here.
@@ -83,8 +85,15 @@ def publish(request):
     return render(request,'article/publish.html',{'article_form':article_form,'operation':'发布'})
 
 
+@login_required
+@transaction.atomic
 def update(request, article_id):
     art = Article.objects.get(pk=article_id)
+    if request.user.username == art.author_id.user.username:
+        pass
+    else:
+        return redirect('/article/%d/' % (article_id,))
+
     if request.method == 'POST':
         article_form = ArticleForm(request.POST,request.FILES,instance=art)
 

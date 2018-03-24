@@ -1,4 +1,7 @@
-
+@media (min-width:500px){
+.container{width:480px}
+.banner{height:300px}
+}
 
 html,body {
     background-color:#f6f8fa;
@@ -72,7 +75,6 @@ ul.nav.navbar-nav  li a:hover {
 
 div.container-fluid {
 	margin:0;
-
 	position:relative;
     min-height:100%;
     /*设置padding-bottom值大于等于footer的height值，以保证main的内容能够全部显示出来而不被footer遮盖；*/
@@ -81,7 +83,7 @@ div.container-fluid {
 }
 
 .container {
-	width:80%;
+	min-width:80%;
 }
 
 .sidebar , .content {
@@ -91,7 +93,7 @@ div.container-fluid {
 .card {
 	width:100%;
 	padding:10px;
-	margin:10px;
+	margin-top:10px;
 	border: 1px solid #e2e2e2;
 	box-shadow: 1px 1px 1px 1px #e2e2e2;
 	background-color:white;
@@ -268,4 +270,4 @@ footer, footer a{
 .foot-wrap .foot-top ul li {
 	float:left;
 	padding-right:20px;
-}
+}    
